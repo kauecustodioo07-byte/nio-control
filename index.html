@@ -64,6 +64,21 @@ th{font-size:11px}td{font-size:12px}
 .top{position:relative;z-index:5;background:#030b0c}
 .side-bottom{isolation:isolate}
 @media(max-width:760px){.hero{height:120px}.hero:before{height:120px;right:0;width:65%}}
+
+/* Fundo de referência integrado à página, sem cartões em torno do cabeçalho */
+.main{position:relative;isolation:isolate;background:transparent}
+.main:before{content:"";position:absolute;z-index:-2;left:0;right:0;top:0;height:215px;background-image:url('./background.png');background-repeat:no-repeat;background-size:100% auto;background-position:center -1px;pointer-events:none;opacity:.95;mask-image:linear-gradient(to bottom,#000 0%,#000 55%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 55%,transparent 100%)}
+.top{background:transparent}
+.hero{height:105px;overflow:visible;background:transparent;border:0;box-shadow:none;padding:8px 12px;margin-bottom:13px}
+.hero:before,.hero:after{display:none!important}
+.hero .hero-content{position:relative;z-index:3;text-shadow:0 1px 9px #001810}
+.hero h1{font-size:35px}.hero p{font-size:11px}
+.hero-mwt{top:0;right:20px}
+.mwt-logo-crop{background-image:url('./background.png');background-repeat:no-repeat;mix-blend-mode:screen;mask-image:radial-gradient(ellipse 51% 49% at 50% 50%,#000 65%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 51% 49% at 50% 50%,#000 65%,transparent 100%);filter:drop-shadow(0 0 5px #e0ad3766)}
+.side-bottom{background:radial-gradient(ellipse at 55% 95%,#006b4b44,transparent 75%)}
+.side-bottom .mwt-logo-crop{background-position:-35px -437px}
+.hero-mwt .mwt-logo-crop.small{background-position:-19px -242px}
+@media(max-width:760px){.main:before{background-size:auto 220px;background-position:center top}.hero{height:110px}.hero h1{font-size:29px}}
 </style></head>
 <body><div class="app">
 <aside class="side"><div class="brand"><span class="brand-dot"></span><span class="nio-logo-crop" role="img" aria-label="NIO Digital"></span></div><nav class="menu" id="menu">
