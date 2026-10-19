@@ -51,6 +51,19 @@ th{font-size:11px}td{font-size:12px}
 .middle .card:after{content:"";position:absolute;inset:auto 14% -1px 14%;height:1px;background:linear-gradient(90deg,transparent,#00e69c55,transparent);pointer-events:none}
 @media(max-width:1150px){.metric-label{font-size:11px}.metric-value{font-size:24px}}
 @media(max-width:760px){.hero h1{font-size:30px}.hero:before{top:-15px;height:125px}.hero:after{width:55%}.menu button{min-height:42px}}
+
+/* Correções de contenção visual e recortes das marcas */
+.hero{overflow:hidden;isolation:isolate;position:relative;height:116px;background:linear-gradient(90deg,#031112 0%,#031112 36%,#04221c 80%,#031112 100%);border:0;box-shadow:none}
+.hero:before{position:absolute;z-index:-1;top:0;right:10%;height:116px;width:56%;background-image:url('./background.png');background-size:165% auto;background-position:70% 17%;background-repeat:no-repeat;opacity:.68;mask-image:linear-gradient(90deg,transparent 0%,black 20%,black 85%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0%,black 20%,black 85%,transparent 100%)}
+.hero:after{position:absolute;z-index:-1;top:-55px;right:0;width:37%;height:120px;opacity:.75}
+.hero .hero-content{position:relative;z-index:3}
+.hero-mwt{top:12px;right:15px;z-index:4;overflow:hidden}
+.mwt-logo-crop{mix-blend-mode:normal;filter:drop-shadow(0 0 5px #e6b85b55);mask-image:radial-gradient(ellipse 60% 55% at 50% 50%,#000 63%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 60% 55% at 50% 50%,#000 63%,transparent 100%)}
+.side-bottom .mwt-logo-crop{width:120px;height:140px}
+.hero-mwt .mwt-logo-crop.small{width:65px;height:79px}
+.top{position:relative;z-index:5;background:#030b0c}
+.side-bottom{isolation:isolate}
+@media(max-width:760px){.hero{height:120px}.hero:before{height:120px;right:0;width:65%}}
 </style></head>
 <body><div class="app">
 <aside class="side"><div class="brand"><span class="brand-dot"></span><span class="nio-logo-crop" role="img" aria-label="NIO Digital"></span></div><nav class="menu" id="menu">
