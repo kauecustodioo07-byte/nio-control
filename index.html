@@ -1,219 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#030b0c"><title>NIO Control — MWT Negócios</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-:root{--bg:#030b0c;--panel:#061417;--line:#123032;--muted:#8ca3a8;--green:#00ec92;--glow:0 0 13px #00ef8b70;--sidebar:245px}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:#e8f8f6;font:12px Inter,Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:2px solid var(--green);outline-offset:2px}
-.app{min-height:100vh}.side{position:fixed;z-index:20;top:0;bottom:0;left:0;width:var(--sidebar);border-right:1px solid #124135;background:linear-gradient(165deg,#041013 0%,#02090b 60%,#06251b 100%);display:flex;flex-direction:column;overflow:hidden}
-.side:after{content:"";position:absolute;bottom:-130px;left:-90px;width:370px;height:350px;border-radius:50%;background:radial-gradient(circle,#00e38b40,transparent 63%);pointer-events:none}
-.brand{height:91px;padding:21px 20px 18px;display:flex;align-items:flex-start;gap:0;border-bottom:1px solid #10352e;flex-shrink:0}.brand-dot{width:9px;height:9px;background:#00ed9d;border-radius:50%;box-shadow:0 0 12px #00f68d;flex-shrink:0}.brand-text{font-size:33px;font-weight:900;letter-spacing:-3px;color:white;line-height:1}.brand-text small{font-size:16px;font-weight:500;letter-spacing:-1px;margin-left:3px}
-.menu{padding:10px 9px;overflow-y:auto;flex:1;scrollbar-width:thin;scrollbar-color:#185d47 transparent}.menu button{width:100%;min-height:41px;background:transparent;border:1px solid transparent;color:#c4d4d6;border-radius:7px;display:flex;align-items:center;gap:11px;padding:0 11px;text-align:left;font-size:11px;font-weight:500;margin-bottom:3px}.menu button:hover{background:#0b3029}.menu button.active{background:linear-gradient(90deg,#067a4c,#084330 75%,#04211e);border-color:#087c4c;color:#fff;box-shadow:inset 3px 0 var(--green),0 0 15px #00ef8b3d}.ico{width:17px;height:17px;display:grid;place-items:center;flex-shrink:0;font-size:15px}.menu button span.label{flex:1}.count{border-radius:5px;padding:3px 6px;font-size:10px;font-weight:800;color:#05130d;background:#09e38a}.count.blue{background:#27aaf9}.count.yellow{background:#ffc640}.count.purple{background:#a96aff}.count.red{background:#ff4c65}.separator{height:1px;background:#164139;margin:13px 9px}.side-bottom{height:205px;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative;background:radial-gradient(ellipse at bottom,#008c5640,transparent 65%)}.side-bottom:before{content:"";position:absolute;bottom:8px;right:-85px;width:235px;height:180px;border-top:2px solid #00e88c80;border-radius:80%;transform:rotate(-33deg);box-shadow:0 -8px 35px #00e88a22}.mwt{text-align:center;color:#e9b64b;filter:drop-shadow(0 0 6px #f3b84155);position:relative}.mwt-shield{font-size:43px;font-weight:900;line-height:1}.mwt-title{font-family:Georgia,serif;font-weight:900;font-size:27px;letter-spacing:2px}.mwt-sub{font-size:10px;letter-spacing:3px;font-weight:800}
-.main{margin-left:var(--sidebar);min-height:100vh;padding:0 15px 30px}.top{height:65px;display:flex;align-items:center;justify-content:space-between;gap:10px}.search{width:min(390px,47%);height:37px;border:1px solid #19333a;background:#07171c;border-radius:8px;display:flex;align-items:center;gap:10px;padding:0 12px;color:#88a8ad}.search input{width:100%;border:0;outline:0;background:transparent;color:#d9f2ec;font-size:11px}.search input::placeholder{color:#6c888d}.userarea{display:flex;align-items:center;gap:16px}.theme{border:1px solid #173f38;border-radius:18px;background:#0b2623;color:#07ef92;padding:6px 12px}.bell{border:0;background:none;color:#b8ced0;font-size:18px}.avatar{border:1px solid #3b7473;border-radius:50%;width:32px;height:32px;display:grid;place-items:center;color:#d8e9e8;background:#12282b}.who{font-size:11px;font-weight:700}.who small{display:block;color:#8ba2a3;font-weight:400;font-size:10px;margin-top:3px}
-.hero{position:relative;height:105px;padding:10px 14px;overflow:hidden;border-radius:11px;margin-bottom:12px;background:linear-gradient(100deg,#031112 0%,#031112 37%,#02211c 75%,#03100f 100%);border:1px solid #0a302a}.hero:before{content:"";position:absolute;right:9%;top:0;width:62%;height:100%;background-image:url("./background.png");background-size:165% auto;background-position:70% 17%;opacity:.78}.hero:after{content:"";position:absolute;right:-20px;top:-60px;width:320px;height:130px;border-bottom:2px solid #00f69b;border-radius:50%;transform:rotate(-18deg);box-shadow:0 10px 32px #00ff9560}.hero .hero-content{position:relative;z-index:1}.eyebrow{font-size:10px;letter-spacing:1.6px;font-weight:800;color:#00e99a}.hero h1{font-size:33px;letter-spacing:-1.4px;margin:6px 0 3px;font-weight:800;line-height:1}.hero h1 em{font-style:normal;color:#00e995}.hero p{margin:0;color:#9ab1b5;font-size:11px}.hero-mwt{position:absolute;right:30px;top:13px;z-index:2;text-align:center;color:#eab64c;text-shadow:0 0 10px #f6b84e70}.hero-mwt b{display:block;font-family:Georgia,serif;font-size:20px}.hero-mwt small{font-size:8px;letter-spacing:2px}
-.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.card{background:linear-gradient(145deg,#07181b,#031013);border:1px solid #153034;border-radius:10px;box-shadow:0 4px 14px #0006;min-width:0}.metric{height:94px;padding:13px 12px;display:flex;gap:11px;position:relative;overflow:hidden}.metric-icon{width:38px;height:38px;flex-shrink:0;display:grid;place-items:center;border-radius:9px;background:#064a39;color:#00ffad;font-size:20px;box-shadow:0 0 15px #00ed8a22}.metric-icon.blue{background:#202e64;color:#8a99ff}.metric-icon.yellow{background:#59471b;color:#ffcb46}.metric-icon.green{background:#065343;color:#00f4a0}.metric-label{font-size:10px;color:#a8b9bd;white-space:nowrap}.metric-value{font-size:24px;font-weight:800;margin-top:5px;line-height:1}.delta{font-size:10px;color:#00ee91;margin-top:5px}.delta.down{color:#ff4b68}.delta.gold{color:#ffcb48}.spark{position:absolute;right:7px;bottom:10px;width:34%;height:37px;overflow:visible}.spark path{fill:none;stroke:#0df49c;stroke-width:2;filter:drop-shadow(0 0 4px #0aff8f)}.spark.blue path{stroke:#37a4ff;filter:drop-shadow(0 0 4px #2f9aff)}.spark.yellow path{stroke:#ffbf34;filter:drop-shadow(0 0 4px #ffb400)}
-.middle{display:grid;grid-template-columns:1.5fr 1.05fr .74fr;gap:10px;margin-top:10px}.chartcard,.statuscard,.remit{height:221px;padding:12px}.cardhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}.cardhead strong{font-size:12px;font-weight:700}.cardhead strong:before{content:"";display:inline-block;width:8px;height:8px;background:#00eaa1;border-radius:50%;margin-right:8px;box-shadow:0 0 8px #00eaa1}.select{font-size:10px;color:#95acb1;border:1px solid #173037;background:#071519;padding:6px 8px;border-radius:6px}.plot{width:100%;height:161px;overflow:visible}.gridline{stroke:#173134;stroke-width:1;opacity:.65}.axis{font-size:10px;fill:#82989b}.chartline{fill:none;stroke:#00eea1;stroke-width:2.5;filter:drop-shadow(0 0 6px #00ff9e)}.chartfill{fill:url(#areaFill)}.dot{fill:#c5ffe3;filter:drop-shadow(0 0 4px #00ff9c)}.statusbody{display:flex;align-items:center;justify-content:space-between;gap:10px;height:166px}.donut{width:142px;height:142px;flex-shrink:0;border-radius:50%;background:conic-gradient(#08d68e 0 67%,#2395ff 67% 79%,#ffc34d 79% 88%,#ff4a5f 88% 94%,#7c56ed 94% 100%);position:relative;box-shadow:0 0 18px #00e98733}.donut:after{content:"";position:absolute;inset:21px;border-radius:50%;background:#06171a}.donut-center{position:absolute;z-index:1;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;color:#9eb8b8;font-size:10px}.donut-center b{font-size:21px;color:#f3ffff;margin-top:4px}.legend{font-size:9px;display:grid;gap:12px;flex:1;min-width:0}.legend-item{display:flex;align-items:center;gap:6px;white-space:nowrap;color:#b6c7c9}.legend-item i{width:7px;height:7px;flex-shrink:0;border-radius:50%}.legend-item span{margin-left:auto;color:#9eb1b4}.remit .cardhead strong:before{display:none}.remit p{color:#a1b8b8;font-size:10px;line-height:1.6}.primary{background:#00e992;border:1px solid #00f4a0;color:#04231a;border-radius:6px;padding:9px 12px;font-weight:800;font-size:10px;box-shadow:0 0 15px #00ed8c55}.primary:hover{filter:brightness(1.12)}.remit .primary{width:100%;margin:4px 0 12px}.notice{border:1px solid #087c55;background:#063528;padding:10px;border-radius:7px;font-size:10px;color:#b2d4c7;line-height:1.5}.notice b{color:#0dff9b}
-.bottom{display:grid;grid-template-columns:minmax(0,2.2fr) minmax(185px,.78fr);gap:10px;margin-top:10px}.referral{overflow:hidden}.tabs{display:flex;gap:4px;margin-bottom:8px;overflow-x:auto;scrollbar-width:none}.tabs button{flex:1;white-space:nowrap;border:1px solid #143034;background:#07151a;color:#a3b6ba;border-radius:6px;padding:9px 7px;font-size:9px}.tabs button.selected{border-color:#00dc87;color:#effff5;box-shadow:0 0 11px #00ed8a55;background:#06402e}.tabs .count{margin-left:5px;font-size:9px;padding:2px 5px}.referral-inner{padding:12px}.referral-header{display:flex;align-items:center;justify-content:space-between;gap:8px}.referral-header h2{font-size:14px;margin:0 0 4px}.referral-header p{font-size:10px;color:#91a9ad;margin:0}.tablewrap{overflow:auto;max-height:350px;margin-top:14px}table{width:100%;border-collapse:collapse;white-space:nowrap;text-align:left}th{font-size:9px;color:#91a8ad;font-weight:500;background:#0b1c21}td{font-size:10px;color:#c6d7d8}th,td{padding:11px 9px;border-bottom:1px solid #183137}.pill{display:inline-block;border-radius:12px;background:#063d2a;color:#00e897;padding:4px 8px;font-size:9px}.pill.warn{background:#433412;color:#ffce4b}.pill.blue{background:#112e50;color:#45aaff}.pill.red{background:#421a23;color:#ff5c75}.empty{text-align:center;color:#7e9b9d;padding:35px 10px}.activity{padding:12px}.activity .cardhead{margin-bottom:20px}.event{display:flex;gap:10px;margin:0 0 22px;position:relative}.event:before{content:"";position:absolute;top:12px;bottom:-24px;left:4px;width:1px;background:#22574b}.event:last-child:before{display:none}.event-dot{width:9px;height:9px;flex-shrink:0;border-radius:50%;background:#00ee98;box-shadow:0 0 8px #00ed98}.event:nth-child(3) .event-dot{background:#ff515b;box-shadow:0 0 8px #ff515b}.event:nth-child(4) .event-dot{background:#2aafff;box-shadow:0 0 8px #2aafff}.event:nth-child(5) .event-dot{background:#a276ff;box-shadow:0 0 8px #a276ff}.event b{display:block;font-size:10px;font-weight:600;margin-bottom:5px}.event small{color:#7c969a;font-size:9px}.page{display:none}.page.active{display:block}.page-hero{padding:25px 10px 30px}.page-hero h1{font-size:30px;margin:7px 0}.page-hero p{color:#9bb1b3}.page-content{padding:18px;min-height:250px}.page-content h2{font-size:16px}.page-content p{color:#8da6a8;line-height:1.7}.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.secondary{background:#09231f;border:1px solid #1c5541;color:#b9f4d1;border-radius:6px;padding:9px 12px}.footnote{color:#7a999b;font-size:10px;margin-top:16px}.toast{position:fixed;bottom:25px;right:25px;background:#0c3d2d;border:1px solid #1cc783;color:#d9ffe9;padding:13px 17px;border-radius:10px;z-index:40;box-shadow:0 8px 25px #0009;display:none}
-@media(max-width:1150px){:root{--sidebar:210px}.middle{grid-template-columns:1.3fr 1fr}.remit{grid-column:1/-1;height:auto}.statusbody{justify-content:flex-start}.metric{padding:10px}.metric-label{font-size:9px}.metric-value{font-size:21px}}
-@media(max-width:760px){:root{--sidebar:58px}.brand{padding:15px 7px;height:75px}.brand-text,.side-bottom,.menu .label,.menu .count,.separator{display:none}.menu{padding:6px}.menu button{justify-content:center;padding:0}.main{padding:0 9px 25px}.top{height:58px}.search{width:52%}.who,.bell{display:none}.hero{height:113px}.hero:before{font-size:130px;top:-15px;right:15%;letter-spacing:-15px}.hero-mwt{right:10px}.metrics{grid-template-columns:repeat(2,1fr)}.middle,.bottom{grid-template-columns:1fr}.chartcard,.statuscard{height:auto;min-height:220px}.metric{height:88px}.tabs button{flex:0 0 auto}.activity{display:none}}
-.nio-logo-crop{display:block;width:177px;height:56px;background-image:url('./background.png');background-repeat:no-repeat;background-size:1100px auto;background-position:-12px -12px;flex-shrink:0}.mwt-logo-crop{display:block;width:120px;height:140px;background-image:url('./background.png');background-repeat:no-repeat;background-size:1100px auto;background-position:-35px -437px}.mwt-logo-crop.small{width:65px;height:79px;background-size:610px auto;background-position:-19px -242px}.hero-mwt{top:4px;right:20px}.brand{padding:9px 8px}.brand-dot{display:none}@media(max-width:760px){.nio-logo-crop{width:41px;height:32px;background-size:370px auto;background-position:-3px -4px}.brand{padding:13px 3px}.hero-mwt{display:none}}
-/* Refinamento visual: título livre, iluminação e tipografia */
-body{font-size:14px;background:radial-gradient(ellipse at 82% 0%,#063c2b44,transparent 50%),#030b0c}
-.hero{overflow:visible;border:0;border-radius:0;background:transparent;box-shadow:none;margin-bottom:18px;padding:13px 14px 11px;isolation:isolate}
-.hero:before{z-index:-1;right:7%;top:-45px;width:67%;height:175px;background-image:url('./background.png');background-size:165% auto;background-position:70% 17%;background-repeat:no-repeat;opacity:.86;pointer-events:none;mask-image:linear-gradient(to bottom,#000 45%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,#000 45%,transparent 100%)}
-.hero:after{z-index:-1;right:0;top:-54px;width:42%;height:140px;border-bottom:2px solid #00f69b8c;box-shadow:0 10px 30px #00ff953d;pointer-events:none}
-.hero .hero-content{z-index:2}
-.hero h1{font-size:39px;letter-spacing:-1.5px;text-shadow:0 2px 14px #0009}
-.hero p{font-size:13px}
-.eyebrow{font-size:12px}
-.hero-mwt{z-index:3;right:25px;top:0}
-.mwt-logo-crop{mix-blend-mode:screen;filter:drop-shadow(0 0 8px #ffc04a30);border:0;background-color:transparent}
-.side-bottom{background:radial-gradient(ellipse at 70% 100%,#00e78a43,transparent 70%)}
-.side-bottom:after{content:"";position:absolute;inset:10% -30% -25% -30%;border-top:1px solid #00fa8b80;border-radius:50%;transform:rotate(-25deg);box-shadow:0 -10px 32px #00ff8540;pointer-events:none}
-.side{box-shadow:5px 0 28px #00eb8614}
-.brand{border-bottom-color:#0a4c38}
-.menu button{font-size:13px;min-height:44px}
-.menu button.active{box-shadow:inset 3px 0 var(--green),0 0 23px #00ed8b55}
-.search input{font-size:13px}
-.who{font-size:13px}.who small{font-size:11px}
-.metric-label{font-size:12px}.metric-value{font-size:28px}.delta{font-size:11px}
-.card{border-color:#15413c;box-shadow:0 5px 20px #0008,0 0 18px #00f18b0b;transition:border-color .2s,box-shadow .2s,transform .2s}
-.card:hover{border-color:#237b59;box-shadow:0 8px 28px #000a,0 0 22px #00ee8723}
-.cardhead strong{font-size:14px}
-.select,.remit p,.notice{font-size:12px}
-.referral-header h2{font-size:16px}.referral-header p{font-size:12px}
-.tabs button{font-size:11px}
-th{font-size:11px}td{font-size:12px}
-.legend{font-size:11px}.event b{font-size:12px}.event small{font-size:11px}
-.primary,.secondary{font-size:12px}
-.main{background:radial-gradient(ellipse at 85% 13%,#00d28a0c,transparent 42%)}
-.middle .card{position:relative}
-.middle .card:after{content:"";position:absolute;inset:auto 14% -1px 14%;height:1px;background:linear-gradient(90deg,transparent,#00e69c55,transparent);pointer-events:none}
-@media(max-width:1150px){.metric-label{font-size:11px}.metric-value{font-size:24px}}
-@media(max-width:760px){.hero h1{font-size:30px}.hero:before{top:-15px;height:125px}.hero:after{width:55%}.menu button{min-height:42px}}
-
-/* Correções de contenção visual e recortes das marcas */
-.hero{overflow:hidden;isolation:isolate;position:relative;height:116px;background:linear-gradient(90deg,#031112 0%,#031112 36%,#04221c 80%,#031112 100%);border:0;box-shadow:none}
-.hero:before{position:absolute;z-index:-1;top:0;right:10%;height:116px;width:56%;background-image:url('./background.png');background-size:165% auto;background-position:70% 17%;background-repeat:no-repeat;opacity:.68;mask-image:linear-gradient(90deg,transparent 0%,black 20%,black 85%,transparent 100%);-webkit-mask-image:linear-gradient(90deg,transparent 0%,black 20%,black 85%,transparent 100%)}
-.hero:after{position:absolute;z-index:-1;top:-55px;right:0;width:37%;height:120px;opacity:.75}
-.hero .hero-content{position:relative;z-index:3}
-.hero-mwt{top:12px;right:15px;z-index:4;overflow:hidden}
-.mwt-logo-crop{mix-blend-mode:normal;filter:drop-shadow(0 0 5px #e6b85b55);mask-image:radial-gradient(ellipse 60% 55% at 50% 50%,#000 63%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 60% 55% at 50% 50%,#000 63%,transparent 100%)}
-.side-bottom .mwt-logo-crop{width:120px;height:140px}
-.hero-mwt .mwt-logo-crop.small{width:65px;height:79px}
-.top{position:relative;z-index:5;background:#030b0c}
-.side-bottom{isolation:isolate}
-@media(max-width:760px){.hero{height:120px}.hero:before{height:120px;right:0;width:65%}}
-
-/* Fundo de referência integrado à página, sem cartões em torno do cabeçalho */
-.main{position:relative;isolation:isolate;background:transparent}
-.main:before{content:"";position:absolute;z-index:-2;left:0;right:0;top:0;height:215px;background-image:url('./background.png');background-repeat:no-repeat;background-size:100% auto;background-position:center -1px;pointer-events:none;opacity:.95;mask-image:linear-gradient(to bottom,#000 0%,#000 55%,transparent 100%);-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 55%,transparent 100%)}
-.top{background:transparent}
-.hero{height:105px;overflow:visible;background:transparent;border:0;box-shadow:none;padding:8px 12px;margin-bottom:13px}
-.hero:before,.hero:after{display:none!important}
-.hero .hero-content{position:relative;z-index:3;text-shadow:0 1px 9px #001810}
-.hero h1{font-size:35px}.hero p{font-size:11px}
-.hero-mwt{top:0;right:20px}
-.mwt-logo-crop{background-image:url('./background.png');background-repeat:no-repeat;mix-blend-mode:screen;mask-image:radial-gradient(ellipse 51% 49% at 50% 50%,#000 65%,transparent 100%);-webkit-mask-image:radial-gradient(ellipse 51% 49% at 50% 50%,#000 65%,transparent 100%);filter:drop-shadow(0 0 5px #e0ad3766)}
-.side-bottom{background:radial-gradient(ellipse at 55% 95%,#006b4b44,transparent 75%)}
-.side-bottom .mwt-logo-crop{background-position:-35px -437px}
-.hero-mwt .mwt-logo-crop.small{background-position:-19px -242px}
-@media(max-width:760px){.main:before{background-size:auto 220px;background-position:center top}.hero{height:110px}.hero h1{font-size:29px}}
-
-/* Reconstrução visual baseada na referência 815 × 536: dimensões, camadas e hierarquia */
-:root{--sidebar:16%;--bg:#020c0e;--panel:#041216;--line:#112c31}
-body{background:#020b0d;font-size:13px}
-.side{width:16%;min-width:155px;max-width:255px;background:linear-gradient(160deg,#031012 0%,#020a0c 62%,#022a1e 100%);border-right:1px solid #0c3b30}
-.side-bottom{height:26%;min-height:145px;max-height:245px;flex-shrink:0}
-.main{margin-left:clamp(155px,16%,255px);padding:0 12px 28px;background:transparent}
-.main:before{display:none!important}
-.top{height:58px;background:#020c0e;position:relative;z-index:6}
-.search{width:min(440px,42%);height:34px}
-.hero{height:119px;overflow:visible;isolation:isolate;position:relative;margin:0 0 13px;padding:11px 9px;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important}
-.hero:before{content:""!important;display:block!important;position:absolute;z-index:-1;left:27%;right:-12px;top:-58px;width:auto;height:180px;background-image:url('./background.png');background-repeat:no-repeat;background-size:145% auto;background-position:76% 8%;opacity:.88;pointer-events:none;mask-image:linear-gradient(to right,transparent 0%,#000 18%,#000 92%);-webkit-mask-image:linear-gradient(to right,transparent 0%,#000 18%,#000 92%)}
-.hero:after{content:""!important;display:block!important;position:absolute;z-index:-1;right:-12px;top:-55px;width:49%;height:145px;border-bottom:2px solid #00e88b;border-radius:50%;transform:rotate(-12deg);opacity:.85;box-shadow:0 12px 22px #00ef8a50;pointer-events:none}
-.hero-content{z-index:3;position:relative}.hero h1{font-size:37px;margin:6px 0 4px}.hero p{font-size:12px}.eyebrow{font-size:11px}
-.hero-mwt{position:absolute;z-index:4;right:17px;top:12px}
-.mwt-logo-crop{mix-blend-mode:screen!important;mask-image:radial-gradient(ellipse 43% 42% at 50% 50%,#000 65%,transparent 100%)!important;-webkit-mask-image:radial-gradient(ellipse 43% 42% at 50% 50%,#000 65%,transparent 100%)!important;filter:drop-shadow(0 0 4px #e9b34840)}
-.side-bottom .mwt-logo-crop{background-position:-35px -437px}
-.hero-mwt .mwt-logo-crop.small{background-position:-19px -242px}
-.metrics{gap:9px}.metric{height:99px;padding:13px 11px}
-.middle{grid-template-columns:1.43fr 1.06fr .72fr;gap:9px;margin-top:9px}
-.chartcard,.statuscard,.remit{height:231px}
-.bottom{gap:9px;margin-top:9px}.card{border-color:#102d31;background:linear-gradient(145deg,#051519,#020e12);box-shadow:0 5px 16px #0008}
-.cardhead strong{font-size:13px}.menu button{min-height:42px;font-size:12px}.menu .count{font-size:10px}
-.tabs button{font-size:10px}.tablewrap th{font-size:10px}.tablewrap td{font-size:11px}
-@media(max-width:1100px){.middle{grid-template-columns:1.43fr 1.06fr .72fr}.remit{grid-column:auto;height:231px}.metric-label{white-space:normal}.statusbody{gap:6px}.donut{width:108px;height:108px}.donut:after{inset:18px}.legend{font-size:9px;gap:8px}.remit .notice{font-size:10px}.remit .primary{font-size:10px}}
-@media(max-width:800px){:root{--sidebar:16%}.side{min-width:100px}.main{margin-left:max(100px,16%);padding:0 7px 20px}.brand{height:48px}.nio-logo-crop{width:106px;height:38px;background-size:700px auto;background-position:-7px -7px}.menu{padding:5px}.menu button{min-height:31px;padding:0 5px;font-size:9px;gap:4px}.menu .ico{width:14px;font-size:11px}.menu .count{font-size:8px;padding:2px 4px}.side-bottom{min-height:130px}.side-bottom .mwt-logo-crop{transform:scale(.8)}.top{height:40px}.hero{height:65px;padding:3px 8px;margin-bottom:8px}.hero:before{top:-40px;height:110px;background-size:145% auto}.hero:after{top:-45px;height:90px}.hero h1{font-size:25px;margin:3px 0}.hero p{font-size:8px}.eyebrow{font-size:8px}.hero-mwt{right:8px;top:-5px;transform:scale(.65);transform-origin:top right}.metrics{gap:6px}.metric{height:58px;padding:6px;gap:5px}.metric-icon{width:26px;height:26px;font-size:13px}.metric-label{font-size:7px}.metric-value{font-size:17px;margin-top:2px}.delta{font-size:7px;margin-top:2px}.spark{height:24px}.middle{gap:6px;margin-top:6px}.chartcard,.statuscard,.remit{height:139px;padding:7px}.cardhead{margin-bottom:4px}.cardhead strong{font-size:8px}.select{font-size:7px;padding:3px}.plot{height:106px}.donut{width:77px;height:77px}.donut:after{inset:12px}.donut-center{font-size:7px}.donut-center b{font-size:14px}.statusbody{height:100px}.legend{font-size:6px;gap:6px}.legend-item{gap:3px}.legend-item i{width:5px;height:5px}.remit p{font-size:7px}.remit .primary{font-size:7px;padding:6px}.remit .notice{font-size:7px;padding:5px}.bottom{gap:6px;margin-top:6px}.tabs{gap:3px;margin-bottom:5px}.tabs button{font-size:6px;padding:5px}.tabs .count{font-size:6px}.referral-inner,.activity{padding:7px}.referral-header h2{font-size:10px}.referral-header p{font-size:7px}.referral-header .primary{font-size:7px;padding:5px}.tablewrap{margin-top:8px}.tablewrap th{font-size:7px}.tablewrap td{font-size:7px}.tablewrap th,.tablewrap td{padding:6px 4px}.activity .event b{font-size:7px}.activity .event small{font-size:7px}.activity .event{margin-bottom:10px}.activity{display:block}.search{height:25px}.search input{font-size:8px}.who{font-size:8px}.who small{font-size:7px}.userarea{gap:6px}.avatar{width:23px;height:23px}.theme{padding:3px 6px}.bell{font-size:12px}}
-@media(max-width:560px){.side{min-width:57px}.main{margin-left:57px}.menu .label,.menu .count{display:none}.menu button{justify-content:center}.middle{grid-template-columns:1fr 1fr}.remit{grid-column:1/-1;height:auto}.bottom{grid-template-columns:1fr}.activity{display:none}.metrics{grid-template-columns:repeat(2,1fr)}.metric{height:68px}.hero-mwt{display:none}}
-</style><style>
-#nioAuth{position:fixed;inset:0;z-index:9999;background:#020c0ff0;display:flex;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(16px)}
-#nioAuth[hidden],#nioLogout[hidden]{display:none!important}
-.nio-login{width:min(410px,100%);border:1px solid #15533f;border-radius:18px;padding:30px;background:linear-gradient(145deg,#092226,#041015);box-shadow:0 12px 70px #00e98d2a}
-.nio-login h2{font-size:28px;margin:0 0 12px;color:#00ef94}.nio-login p{font-size:13px;color:#afc3c3;line-height:1.6}
-.nio-login form{display:grid;gap:12px}.nio-login input{font-size:14px;width:100%;background:#071b1e;color:white;border:1px solid #27544b;border-radius:9px;padding:13px}
-.nio-login button{width:100%;padding:12px;margin-top:8px}#nioAuthMessage{min-height:20px;color:#f9d37a}
-#nioLogout{font-size:11px;padding:8px 12px}#nioUserEmail{color:#00e994;font-size:11px}
-</style><style id="nio-premium-background-v2">
-/* A única arte de fundo: a imagem NIO Digital aprovada, sem recortes antigos. */
-html{background:#010a0c!important;min-height:100%}
-body{
-  background-color:#010a0c!important;
-  background-image:var(--nio-original-wallpaper)!important;
-  background-repeat:no-repeat!important;
-  background-position:center top!important;
-  background-size:cover!important;
-  background-attachment:fixed!important;
-  min-height:100vh;
-}
-.app,.main{background:transparent!important}
-.main::before,.main:before,.hero::before,.hero:before,.hero::after,.hero:after{content:none!important;display:none!important;background-image:none!important;box-shadow:none!important}
-.main{position:relative;z-index:1}
-.side{width:clamp(128px,16vw,255px)!important;min-width:0!important;max-width:255px!important;display:flex!important;flex-direction:column!important;
-  background:linear-gradient(180deg,rgba(1,11,13,.97) 0%,rgba(0,10,13,.95) 56%,rgba(0,33,25,.87) 100%)!important;
-  border-right:1px solid rgba(20,102,78,.58)!important;box-shadow:6px 0 30px #0009;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);}
-.main{margin-left:clamp(128px,16vw,255px)!important}
-.side .brand{flex-shrink:0;position:relative;z-index:2;background:linear-gradient(180deg,#010a0ccf,transparent);border-bottom:1px solid #0d342f!important}
-.side .nio-logo-crop{filter:drop-shadow(0 0 5px #e4fff52e)}
-.side .menu{position:relative;z-index:2;flex:1;min-height:0;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#165442 transparent}
-.side .menu button{transition:background-color .18s,border-color .18s,box-shadow .18s}
-.side .menu button.active{background:linear-gradient(90deg,#07452e,#012a208e)!important;border-color:#02754b45!important;box-shadow:inset 3px 0 #00f196,0 0 22px #00ed8b33!important}
-.side-bottom{position:relative!important;z-index:1;height:23%!important;min-height:138px!important;max-height:255px!important;
-  display:flex!important;align-items:center!important;justify-content:center!important;
-  background:radial-gradient(ellipse at 50% 100%,#008a5966,transparent 73%)!important;flex-shrink:0!important;overflow:hidden}
-.side-bottom::before{opacity:.32!important;pointer-events:none}
-.side-bottom .mwt{position:relative!important;z-index:3;display:flex;align-items:center;justify-content:center;width:100%;height:100%;filter:none!important}
-.mwt-visual{display:block!important;position:relative!important;object-fit:contain!important;object-position:center!important;max-width:100%!important;
-  mix-blend-mode:normal!important;mask-image:none!important;-webkit-mask-image:none!important;
-  opacity:1!important;visibility:visible!important;filter:drop-shadow(0 3px 7px #d6a83655)!important;transform:none!important}
-.side-bottom .mwt-visual{width:min(80%,134px)!important;height:auto!important;max-height:93%!important}
-.top{background:linear-gradient(90deg,#020b0edb,#031214b8)!important;border-bottom:1px solid #123a3533!important;backdrop-filter:blur(6px)}
-.hero{background:transparent!important;border:0!important;box-shadow:none!important;position:relative;isolation:isolate!important;overflow:visible!important}
-.hero-content{position:relative;z-index:5!important}
-.hero-mwt{display:flex!important;align-items:flex-start;justify-content:center;position:absolute!important;right:18px!important;top:6px!important;
-  z-index:8!important;overflow:visible!important;transform:none!important;mix-blend-mode:normal!important}
-.hero-mwt .mwt-visual{width:82px!important;height:82px!important}
-.card{background:linear-gradient(146deg,rgba(5,22,25,.97),rgba(2,14,17,.95))!important;
-  border:1px solid #133536!important;box-shadow:0 8px 23px #0008, inset 0 1px 0 #ffffff07!important}
-.metric{background:linear-gradient(145deg,rgba(5,22,25,.95),rgba(2,14,17,.95))!important}
-.top,.hero,.metrics,.middle,.bottom{position:relative;z-index:2}
-@media(max-width:900px){
-  .hero-mwt{right:12px!important;top:6px!important}
-  .hero-mwt .mwt-visual{width:65px!important;height:65px!important}
-  .side-bottom .mwt-visual{width:min(75%,95px)!important}
-}
-@media(max-width:760px){
-  .side{width:58px!important;min-width:58px!important;max-width:58px!important}
-  .main{margin-left:58px!important}
-  .side-bottom{display:none!important}
-  .hero-mwt{display:none!important}
-  body{background-position:54% top!important}
-}
-@media(prefers-reduced-motion:reduce){.side .menu button{transition:none!important}}
-</style><script defer src="./nio-image-assets.js"></script></head>
-<body><div class="app">
-<aside class="side"><div class="brand"><span class="brand-dot"></span><span class="nio-logo-crop" role="img" aria-label="NIO Digital"></span></div><nav class="menu" id="menu">
-<button class="active" data-page="dashboard"><span class="ico">⌂</span><span class="label">Visão Geral</span></button>
-<button data-page="indicacoes"><span class="ico">♧</span><span class="label">Indicações</span><span class="count" id="menuCount">0</span></button>
-<button data-page="remessas"><span class="ico">▣</span><span class="label">Próxima Remessa</span><span class="count">0</span></button>
-<button data-page="validacao"><span class="ico">▤</span><span class="label">Validação NIO</span><span class="count blue">0</span></button>
-<button data-page="evidencias"><span class="ico">▧</span><span class="label">Pendentes de Evidência</span><span class="count yellow">0</span></button>
-<button data-page="pagamentos"><span class="ico">▣</span><span class="label">Pagamento</span><span class="count purple">0</span></button>
-<button data-page="pagas"><span class="ico">▧</span><span class="label">Pagas</span></button>
-<button data-page="erros"><span class="ico">◷</span><span class="label">Erro no Pagamento</span><span class="count red">0</span></button>
-<div class="separator"></div>
-<button data-page="equipe"><span class="ico">♙</span><span class="label">Usuários e Equipes</span></button>
-<button data-page="relatorios"><span class="ico">▤</span><span class="label">Relatórios</span></button>
-<button data-page="importar"><span class="ico">⇧</span><span class="label">Importar Planilha</span></button>
-<button data-page="config"><span class="ico">⚙</span><span class="label">Configurações</span></button></nav><div class="side-bottom"><div class="mwt"><img class="mwt-visual" data-nio-mwt-logo src="./mwt-logo.png" alt="MWT Negócios" width="132" height="132" decoding="async"></div></div></aside>
-<main class="main"><header class="top"><label class="search"><span>⌕</span><input id="search" placeholder="Buscar por CPF, nome, consultor ou ID..." aria-label="Buscar indicações"></label><div class="userarea"><button class="theme" title="Tema escuro">☼ ●</button><button class="bell" id="bell" title="Notificações">♧</button><div class="avatar">K</div><div class="who">Kauê<small>Administrador</small></div><span>⌄</span><span id="nioUserEmail"></span><button id="nioLogout" class="secondary" hidden>Sair</button></div></header>
-<section class="page active" id="page-dashboard">
-<div class="hero"><div class="hero-content"><div class="eyebrow">● PAINEL ADMINISTRATIVO</div><h1>Visão <em>geral</em></h1><p>Acompanhe todas as indicações NIO em tempo real.</p></div><div class="hero-mwt"><img class="mwt-visual" data-nio-mwt-logo src="./mwt-logo.png" alt="MWT Negócios" width="82" height="82" decoding="async"></div></div>
-<div class="metrics">
-<div class="card metric"><div class="metric-icon">♟</div><div><div class="metric-label">Total de indicações</div><div class="metric-value" data-total>0</div><div class="delta">● Registros</div></div><svg class="spark" viewBox="0 0 100 40"><path d="M0 33 Q18 34 28 22 T51 23 T73 10 T100 5"/></svg></div>
-<div class="card metric"><div class="metric-icon blue">◷</div><div><div class="metric-label">Aguardando validação</div><div class="metric-value" data-validation>0</div><div class="delta down">● Pendentes</div></div><svg class="spark blue" viewBox="0 0 100 40"><path d="M0 35 Q20 33 35 27 T65 24 T100 8"/></svg></div>
-<div class="card metric"><div class="metric-icon yellow">▤</div><div><div class="metric-label">Pendentes de evidência</div><div class="metric-value" data-evidence>0</div><div class="delta gold">● Pendentes</div></div><svg class="spark yellow" viewBox="0 0 100 40"><path d="M0 35 Q15 30 28 30 T55 24 T75 20 T100 6"/></svg></div>
-<div class="card metric"><div class="metric-icon green">✓</div><div><div class="metric-label">Pagas</div><div class="metric-value" data-paid>0</div><div class="delta">● Concluídas</div></div><svg class="spark" viewBox="0 0 100 40"><path d="M0 33 Q17 28 30 27 T60 20 T85 12 T100 5"/></svg></div>
-</div>
-<div class="middle"><div class="card chartcard"><div class="cardhead"><strong>Evolução das indicações</strong><span class="select">Últimos 6 meses ⌄</span></div><svg class="plot" viewBox="0 0 440 160" preserveAspectRatio="none"><defs><linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#00ee97" stop-opacity=".28"/><stop offset="1" stop-color="#00ee97" stop-opacity="0"/></linearGradient></defs><path class="gridline" d="M30 15H430 M30 45H430 M30 75H430 M30 105H430 M30 135H430"/><text class="axis" x="2" y="18">100</text><text class="axis" x="10" y="48">75</text><text class="axis" x="10" y="78">50</text><text class="axis" x="10" y="108">25</text><text class="axis" x="16" y="138">0</text><path class="chartfill" d="M30 130 C60 115 75 72 105 99 S165 105 190 80 S245 100 270 60 S325 82 355 48 S397 60 430 30 L430 135H30Z"/><path class="chartline" d="M30 130 C60 115 75 72 105 99 S165 105 190 80 S245 100 270 60 S325 82 355 48 S397 60 430 30"/><g class="dot"><circle cx="30" cy="130" r="3"/><circle cx="105" cy="99" r="3"/><circle cx="190" cy="80" r="3"/><circle cx="270" cy="60" r="3"/><circle cx="355" cy="48" r="3"/><circle cx="430" cy="30" r="3"/></g><g class="axis"><text x="29" y="154">Mai</text><text x="103" y="154">Jun</text><text x="188" y="154">Jul</text><text x="268" y="154">Ago</text><text x="352" y="154">Set</text><text x="417" y="154">Out</text></g></svg></div>
-<div class="card statuscard"><div class="cardhead"><strong>Status das indicações</strong><span class="select">Este mês ⌄</span></div><div class="statusbody"><div class="donut"><div class="donut-center">Total<b data-total>0</b></div></div><div class="legend"><div class="legend-item"><i style="background:#00dd90"></i>Pagas<span data-paid>0</span></div><div class="legend-item"><i style="background:#269fff"></i>Aguardando validação<span data-validation>0</span></div><div class="legend-item"><i style="background:#ffbe40"></i>Pendentes de evidência<span data-evidence>0</span></div><div class="legend-item"><i style="background:#ff5367"></i>Erro no pagamento<span>0</span></div><div class="legend-item"><i style="background:#8a67ff"></i>Outros<span>0</span></div></div></div></div>
-<div class="card remit"><div class="cardhead"><strong>Próxima remessa</strong><span style="color:#91acb2">ⓘ</span></div><p><span data-remit>0</span> indicações aguardando conferência.</p><button class="primary" data-open="remessas">Conferir agora →</button><div class="notice"><b>♧ Após a conferência</b><br>As indicações serão enviadas para a próxima etapa de pagamento.</div></div></div>
-<div class="bottom"><div><div class="tabs" id="tabs"><button class="selected" data-filter="all">Indicações da semana <span class="count" data-total>0</span></button><button data-filter="validation">Validação NIO <span class="count blue">0</span></button><button data-filter="evidence">Pendentes de evidência <span class="count yellow">0</span></button><button data-filter="payment">Em pagamento <span class="count purple">0</span></button><button data-filter="paid">Pagas</button><button data-filter="error">Erro no pagamento <span class="count red">0</span></button></div><div class="card referral"><div class="referral-inner"><div class="referral-header"><div><h2 id="tableTitle">Indicações da semana</h2><p>Novas indicações recebidas pelo formulário ou incluídas no sistema.</p></div><button class="primary" data-open="validacao">Finalizar conferência do lote</button></div><div class="tablewrap"><table><thead><tr><th>□</th><th>Data e hora ↕</th><th>Consultor</th><th>Supervisor</th><th>CPF indicado</th><th>Nome indicador</th><th>Status</th><th>Ações</th></tr></thead><tbody id="recentBody"><tr><td colspan="8" class="empty">Nenhuma indicação cadastrada.</td></tr></tbody></table></div></div></div></div><div class="card activity"><div class="cardhead"><strong>Últimas atividades</strong><button class="select" data-open="relatorios">Ver todas</button></div><div class="event"><span class="event-dot"></span><div><b>Painel visual inicializado</b><small>Ambiente de demonstração</small></div></div><div class="event"><span class="event-dot"></span><div><b>Validações aguardando dados</b><small>Nenhuma operação registrada</small></div></div><div class="event"><span class="event-dot"></span><div><b>Remessas aguardando configuração</b><small>Nenhuma operação registrada</small></div></div></div></div>
-</section>
-<section class="page" id="page-indicacoes"><div class="page-hero"><div class="eyebrow">● GESTÃO DE INDICAÇÕES</div><h1>Indicações</h1><p>Consulte os registros e acompanhe a situação de cada indicação.</p></div><div class="card page-content"><div class="cardhead"><strong>Indicações cadastradas</strong><button class="primary" data-open="importar">Importar planilha →</button></div><div class="tablewrap"><table><thead><tr><th>Data</th><th>Consultor</th><th>Supervisor</th><th>CPF indicado</th><th>Indicador</th><th>Status</th></tr></thead><tbody id="allBody"><tr><td colspan="6" class="empty">Nenhum registro cadastrado.</td></tr></tbody></table></div></div></section>
-<section class="page" id="page-importar"><div class="page-hero"><div class="eyebrow">● IMPORTAÇÃO</div><h1>Importar Planilha</h1><p>Importe registros CSV e salve suas indicações no banco NIO.</p></div><div class="card page-content"><h2>Selecionar arquivo CSV</h2><p>As indicações são armazenadas no banco do NIO. Utilize apenas informações que você tem autorização para processar.</p><div class="toolbar"><input id="csvFile" type="file" accept=".csv,text/csv"><button class="secondary" id="clear">Limpar registros da sessão</button></div><div class="footnote" id="importInfo">Nenhum arquivo importado.</div></div></section>
-<section class="page" id="page-validacao"><div class="page-hero"><div class="eyebrow">● CONFERÊNCIA</div><h1>Validação NIO</h1><p>Conferência de CPF, duplicidade e vínculo do indicado com a NIO.</p></div><div class="card page-content"><h2>Fila de validação</h2><p>Esta etapa será conectada ao fluxo operacional após a aprovação do layout.</p></div></section>
-<section class="page" id="page-evidencias"><div class="page-hero"><div class="eyebrow">● DOCUMENTOS</div><h1>Pendentes de Evidência</h1><p>Controle de comprovantes e aprovações.</p></div><div class="card page-content"><h2>Fila de evidências</h2><p>Nenhuma evidência cadastrada.</p></div></section>
-<section class="page" id="page-remessas"><div class="page-hero"><div class="eyebrow">● CONFERÊNCIA DE LOTES</div><h1>Próxima Remessa</h1><p>Organize indicações aprovadas para envio ao pagamento.</p></div><div class="card page-content"><h2>Remessas</h2><p>Nenhum lote cadastrado.</p></div></section>
-<section class="page" id="page-pagamentos"><div class="page-hero"><div class="eyebrow">● FINANCEIRO</div><h1>Pagamento</h1><p>Acompanhe pagamentos enviados, concluídos ou com erro.</p></div><div class="card page-content"><h2>Pagamentos</h2><p>Nenhum pagamento registrado.</p></div></section>
-<section class="page" id="page-pagas"><div class="page-hero"><div class="eyebrow">● FINANCEIRO</div><h1>Pagas</h1><p>Indicações com pagamento concluído.</p></div><div class="card page-content"><h2>Pagamentos concluídos</h2><p>Nenhum pagamento concluído.</p></div></section>
-<section class="page" id="page-erros"><div class="page-hero"><div class="eyebrow">● FINANCEIRO</div><h1>Erro no Pagamento</h1><p>Registros que precisam de correção.</p></div><div class="card page-content"><h2>Erros de pagamento</h2><p>Nenhum erro registrado.</p></div></section>
-<section class="page" id="page-equipe"><div class="page-hero"><div class="eyebrow">● ADMINISTRAÇÃO</div><h1>Usuários e Equipes</h1><p>Gestão de consultores, supervisores e permissões.</p></div><div class="card page-content"><h2>Equipe</h2><p>O cadastro seguro será implementado com autenticação e banco de dados.</p></div></section>
-<section class="page" id="page-relatorios"><div class="page-hero"><div class="eyebrow">● ANÁLISE</div><h1>Relatórios</h1><p>Indicadores por período, equipe e status.</p></div><div class="card page-content"><h2>Relatórios</h2><p>Os relatórios serão calculados a partir dos registros persistidos.</p></div></section>
-<section class="page" id="page-config"><div class="page-hero"><div class="eyebrow">● SISTEMA</div><h1>Configurações</h1><p>Preferências e parâmetros operacionais.</p></div><div class="card page-content"><h2>Configurações</h2><p>Configurações administrativas serão habilitadas com o backend.</p></div></section>
-</main><div class="toast" id="toast"></div></div>
-<script>
-(()=>{'use strict';const pages=[...document.querySelectorAll('.page')],nav=[...document.querySelectorAll('.menu button[data-page]')];let rows=[],filter='all',search='';function toast(t){const e=document.getElementById('toast');e.textContent=t;e.style.display='block';clearTimeout(toast.timer);toast.timer=setTimeout(()=>e.style.display='none',3200)}function go(id){pages.forEach(p=>p.classList.toggle('active',p.id==='page-'+id));nav.forEach(b=>b.classList.toggle('active',b.dataset.page===id));window.scrollTo(0,0)}nav.forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.open)));document.getElementById('bell').addEventListener('click',()=>toast('Nenhuma nova notificação.'));document.querySelector('.theme').addEventListener('click',()=>toast('Tema escuro ativo.'));const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const titles={all:'Indicações da semana',validation:'Validação NIO',evidence:'Pendentes de evidência',payment:'Em pagamento',paid:'Pagas',error:'Erro no pagamento'};document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.filter;document.querySelectorAll('[data-filter]').forEach(t=>t.classList.toggle('selected',t===b));document.getElementById('tableTitle').textContent=titles[filter];render()}));document.getElementById('search').addEventListener('input',e=>{search=e.target.value.toLowerCase();render()});function render(){document.querySelectorAll('[data-total]').forEach(e=>e.textContent=rows.length);document.getElementById('menuCount').textContent=rows.length;const matching=rows.filter(r=>Object.values(r).some(v=>String(v).toLowerCase().includes(search)));const cell=r=>'<td>□</td><td>'+esc(r.data)+'</td><td>'+esc(r.consultor)+'</td><td>'+esc(r.supervisor)+'</td><td>'+esc(r.cpf)+'</td><td>'+esc(r.indicador)+'</td><td><span class="pill warn">Importado</span></td><td>⋮</td>';const filtered=filter==='all'?matching:[];document.getElementById('recentBody').innerHTML=filtered.length?filtered.slice(0,12).map(r=>'<tr>'+cell(r)+'</tr>').join(''):'<tr><td colspan="8" class="empty">Nenhuma indicação nesta categoria.</td></tr>';document.getElementById('allBody').innerHTML=matching.length?matching.map(r=>'<tr><td>'+esc(r.data)+'</td><td>'+esc(r.consultor)+'</td><td>'+esc(r.supervisor)+'</td><td>'+esc(r.cpf)+'</td><td>'+esc(r.indicador)+'</td><td><span class="pill warn">Importado</span></td></tr>').join(''):'<tr><td colspan="6" class="empty">Nenhuma indicação cadastrada.</td></tr>'}function csvParse(text){const first=text.split(/\\r?\\n/)[0]||'';const d=(first.match(/;/g)||[]).length>(first.match(/,/g)||[]).length?';':',';let out=[],line=[],v='',quoted=false;for(let i=0;i<text.length;i++){const c=text[i];if(c==='"'){if(quoted&&text[i+1]==='"'){v+='"';i++}else quoted=!quoted}else if(c===d&&!quoted){line.push(v);v=''}else if((c==='\\r'||c==='\\n')&&!quoted){if(c==='\\r'&&text[i+1]==='\\n')i++;line.push(v);if(line.some(Boolean))out.push(line);line=[];v=''}else v+=c}line.push(v);if(line.some(Boolean))out.push(line);return out}window.nioUI={setRows(next){rows=next;render()},count(){return rows.length}};
-render()})();
-</script><div id="nioAuth"><div class="nio-login"><h2>NIO Control</h2><p>Entre para acessar suas indicações armazenadas com segurança.</p><form id="nioLoginForm"><input id="nioEmail" type="email" autocomplete="email" required placeholder="E-mail"><input id="nioPassword" type="password" autocomplete="current-password" minlength="6" required placeholder="Senha"><button class="primary" type="submit">Entrar</button></form><button id="nioSignup" class="secondary" type="button">Criar conta</button><p role="status" id="nioAuthMessage"></p></div></div>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.0/dist/umd/supabase.min.js"></script><script src="./nio-database.js"></script></body></html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#05090b">
+  <title>NIO Control — Novo layout</title>
+  <style>
+    :root{color-scheme:dark;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:#05090b;color:#e8f3f0}
+    main{min-height:100vh;display:grid;place-items:center;padding:24px}
+    .status{max-width:560px;text-align:center}
+    .dot{width:12px;height:12px;display:inline-block;border-radius:50%;background:#00df92;box-shadow:0 0 20px #00df9280;margin-bottom:20px}
+    h1{font-size:clamp(32px,6vw,54px);letter-spacing:-.055em;margin:0 0 14px}
+    p{font-size:16px;color:#9caca9;line-height:1.65;margin:0}
+    small{display:block;color:#617a74;margin-top:24px}
+  </style>
+</head>
+<body>
+  <main>
+    <section class="status" aria-label="Novo layout em preparação">
+      <span class="dot" aria-hidden="true"></span>
+      <h1>NIO Control</h1>
+      <p>Layout em reconstrução. Esta é a base limpa do projeto, sem o painel antigo.</p>
+      <small>Projeto e banco de dados preservados.</small>
+    </section>
+  </main>
+</body>
+</html>
