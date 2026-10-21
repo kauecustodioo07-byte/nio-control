@@ -114,33 +114,63 @@ body{background:#020b0d;font-size:13px}
 .nio-login form{display:grid;gap:12px}.nio-login input{font-size:14px;width:100%;background:#071b1e;color:white;border:1px solid #27544b;border-radius:9px;padding:13px}
 .nio-login button{width:100%;padding:12px;margin-top:8px}#nioAuthMessage{min-height:20px;color:#f9d37a}
 #nioLogout{font-size:11px;padding:8px 12px}#nioUserEmail{color:#00e994;font-size:11px}
-</style><style id="mwt-logo-refresh">
-/* MWT transparent metallic logo — replace old background-image cropping everywhere. */
-.mwt-logo-crop,.mwt-logo-crop.small,
-.side-bottom .mwt-logo-crop,.hero-mwt .mwt-logo-crop.small{
-  display:block!important;
-  background-image:url('./mwt-logo.png')!important;
-  background-color:transparent!important;
-  background-position:center center!important;
+</style><style id="nio-premium-background-v2">
+/* A única arte de fundo: a imagem NIO Digital aprovada, sem recortes antigos. */
+html{background:#010a0c!important;min-height:100%}
+body{
+  background-color:#010a0c!important;
+  background-image:var(--nio-original-wallpaper)!important;
   background-repeat:no-repeat!important;
-  background-size:contain!important;
-  mask-image:none!important;
-  -webkit-mask-image:none!important;
-  mix-blend-mode:normal!important;
-  opacity:1!important;
-  border:0!important;
-  filter:drop-shadow(0 2px 8px rgba(214,159,48,.25))!important;
-  transform:none!important;
+  background-position:center top!important;
+  background-size:cover!important;
+  background-attachment:fixed!important;
+  min-height:100vh;
 }
-.side-bottom{display:flex;align-items:center;justify-content:center}
-.side-bottom .mwt-logo-crop{width:126px!important;height:126px!important;max-width:85%}
-.hero-mwt{right:18px!important;top:9px!important;overflow:visible!important}
-.hero-mwt .mwt-logo-crop.small{width:77px!important;height:77px!important}
+.app,.main{background:transparent!important}
+.main::before,.main:before,.hero::before,.hero:before,.hero::after,.hero:after{content:none!important;display:none!important;background-image:none!important;box-shadow:none!important}
+.main{position:relative;z-index:1}
+.side{width:clamp(128px,16vw,255px)!important;min-width:0!important;max-width:255px!important;display:flex!important;flex-direction:column!important;
+  background:linear-gradient(180deg,rgba(1,11,13,.97) 0%,rgba(0,10,13,.95) 56%,rgba(0,33,25,.87) 100%)!important;
+  border-right:1px solid rgba(20,102,78,.58)!important;box-shadow:6px 0 30px #0009;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);}
+.main{margin-left:clamp(128px,16vw,255px)!important}
+.side .brand{flex-shrink:0;position:relative;z-index:2;background:linear-gradient(180deg,#010a0ccf,transparent);border-bottom:1px solid #0d342f!important}
+.side .nio-logo-crop{filter:drop-shadow(0 0 5px #e4fff52e)}
+.side .menu{position:relative;z-index:2;flex:1;min-height:0;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#165442 transparent}
+.side .menu button{transition:background-color .18s,border-color .18s,box-shadow .18s}
+.side .menu button.active{background:linear-gradient(90deg,#07452e,#012a208e)!important;border-color:#02754b45!important;box-shadow:inset 3px 0 #00f196,0 0 22px #00ed8b33!important}
+.side-bottom{position:relative!important;z-index:1;height:23%!important;min-height:138px!important;max-height:255px!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  background:radial-gradient(ellipse at 50% 100%,#008a5966,transparent 73%)!important;flex-shrink:0!important;overflow:hidden}
+.side-bottom::before{opacity:.32!important;pointer-events:none}
+.side-bottom .mwt{position:relative!important;z-index:3;display:flex;align-items:center;justify-content:center;width:100%;height:100%;filter:none!important}
+.mwt-visual{display:block!important;position:relative!important;object-fit:contain!important;object-position:center!important;max-width:100%!important;
+  mix-blend-mode:normal!important;mask-image:none!important;-webkit-mask-image:none!important;
+  opacity:1!important;visibility:visible!important;filter:drop-shadow(0 3px 7px #d6a83655)!important;transform:none!important}
+.side-bottom .mwt-visual{width:min(80%,134px)!important;height:auto!important;max-height:93%!important}
+.top{background:linear-gradient(90deg,#020b0edb,#031214b8)!important;border-bottom:1px solid #123a3533!important;backdrop-filter:blur(6px)}
+.hero{background:transparent!important;border:0!important;box-shadow:none!important;position:relative;isolation:isolate!important;overflow:visible!important}
+.hero-content{position:relative;z-index:5!important}
+.hero-mwt{display:flex!important;align-items:flex-start;justify-content:center;position:absolute!important;right:18px!important;top:6px!important;
+  z-index:8!important;overflow:visible!important;transform:none!important;mix-blend-mode:normal!important}
+.hero-mwt .mwt-visual{width:82px!important;height:82px!important}
+.card{background:linear-gradient(146deg,rgba(5,22,25,.97),rgba(2,14,17,.95))!important;
+  border:1px solid #133536!important;box-shadow:0 8px 23px #0008, inset 0 1px 0 #ffffff07!important}
+.metric{background:linear-gradient(145deg,rgba(5,22,25,.95),rgba(2,14,17,.95))!important}
+.top,.hero,.metrics,.middle,.bottom{position:relative;z-index:2}
+@media(max-width:900px){
+  .hero-mwt{right:12px!important;top:6px!important}
+  .hero-mwt .mwt-visual{width:65px!important;height:65px!important}
+  .side-bottom .mwt-visual{width:min(75%,95px)!important}
+}
 @media(max-width:760px){
- .side-bottom{display:none!important}
- .hero-mwt{display:none!important}
+  .side{width:58px!important;min-width:58px!important;max-width:58px!important}
+  .main{margin-left:58px!important}
+  .side-bottom{display:none!important}
+  .hero-mwt{display:none!important}
+  body{background-position:54% top!important}
 }
-</style></head>
+@media(prefers-reduced-motion:reduce){.side .menu button{transition:none!important}}
+</style><script defer src="./nio-image-assets.js"></script></head>
 <body><div class="app">
 <aside class="side"><div class="brand"><span class="brand-dot"></span><span class="nio-logo-crop" role="img" aria-label="NIO Digital"></span></div><nav class="menu" id="menu">
 <button class="active" data-page="dashboard"><span class="ico">⌂</span><span class="label">Visão Geral</span></button>
@@ -155,10 +185,10 @@ body{background:#020b0d;font-size:13px}
 <button data-page="equipe"><span class="ico">♙</span><span class="label">Usuários e Equipes</span></button>
 <button data-page="relatorios"><span class="ico">▤</span><span class="label">Relatórios</span></button>
 <button data-page="importar"><span class="ico">⇧</span><span class="label">Importar Planilha</span></button>
-<button data-page="config"><span class="ico">⚙</span><span class="label">Configurações</span></button></nav><div class="side-bottom"><div class="mwt"><span class="mwt-logo-crop" role="img" aria-label="MWT Negócios"></span></div></div></aside>
+<button data-page="config"><span class="ico">⚙</span><span class="label">Configurações</span></button></nav><div class="side-bottom"><div class="mwt"><img class="mwt-visual" data-nio-mwt-logo src="./mwt-logo.png" alt="MWT Negócios" width="132" height="132" decoding="async"></div></div></aside>
 <main class="main"><header class="top"><label class="search"><span>⌕</span><input id="search" placeholder="Buscar por CPF, nome, consultor ou ID..." aria-label="Buscar indicações"></label><div class="userarea"><button class="theme" title="Tema escuro">☼ ●</button><button class="bell" id="bell" title="Notificações">♧</button><div class="avatar">K</div><div class="who">Kauê<small>Administrador</small></div><span>⌄</span><span id="nioUserEmail"></span><button id="nioLogout" class="secondary" hidden>Sair</button></div></header>
 <section class="page active" id="page-dashboard">
-<div class="hero"><div class="hero-content"><div class="eyebrow">● PAINEL ADMINISTRATIVO</div><h1>Visão <em>geral</em></h1><p>Acompanhe todas as indicações NIO em tempo real.</p></div><div class="hero-mwt"><span class="mwt-logo-crop small" role="img" aria-label="MWT Negócios"></span></div></div>
+<div class="hero"><div class="hero-content"><div class="eyebrow">● PAINEL ADMINISTRATIVO</div><h1>Visão <em>geral</em></h1><p>Acompanhe todas as indicações NIO em tempo real.</p></div><div class="hero-mwt"><img class="mwt-visual" data-nio-mwt-logo src="./mwt-logo.png" alt="MWT Negócios" width="82" height="82" decoding="async"></div></div>
 <div class="metrics">
 <div class="card metric"><div class="metric-icon">♟</div><div><div class="metric-label">Total de indicações</div><div class="metric-value" data-total>0</div><div class="delta">● Registros</div></div><svg class="spark" viewBox="0 0 100 40"><path d="M0 33 Q18 34 28 22 T51 23 T73 10 T100 5"/></svg></div>
 <div class="card metric"><div class="metric-icon blue">◷</div><div><div class="metric-label">Aguardando validação</div><div class="metric-value" data-validation>0</div><div class="delta down">● Pendentes</div></div><svg class="spark blue" viewBox="0 0 100 40"><path d="M0 35 Q20 33 35 27 T65 24 T100 8"/></svg></div>
