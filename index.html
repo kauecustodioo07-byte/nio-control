@@ -114,6 +114,32 @@ body{background:#020b0d;font-size:13px}
 .nio-login form{display:grid;gap:12px}.nio-login input{font-size:14px;width:100%;background:#071b1e;color:white;border:1px solid #27544b;border-radius:9px;padding:13px}
 .nio-login button{width:100%;padding:12px;margin-top:8px}#nioAuthMessage{min-height:20px;color:#f9d37a}
 #nioLogout{font-size:11px;padding:8px 12px}#nioUserEmail{color:#00e994;font-size:11px}
+</style><style id="mwt-logo-refresh">
+/* MWT transparent metallic logo — replace old background-image cropping everywhere. */
+.mwt-logo-crop,.mwt-logo-crop.small,
+.side-bottom .mwt-logo-crop,.hero-mwt .mwt-logo-crop.small{
+  display:block!important;
+  background-image:url('./mwt-logo.png')!important;
+  background-color:transparent!important;
+  background-position:center center!important;
+  background-repeat:no-repeat!important;
+  background-size:contain!important;
+  mask-image:none!important;
+  -webkit-mask-image:none!important;
+  mix-blend-mode:normal!important;
+  opacity:1!important;
+  border:0!important;
+  filter:drop-shadow(0 2px 8px rgba(214,159,48,.25))!important;
+  transform:none!important;
+}
+.side-bottom{display:flex;align-items:center;justify-content:center}
+.side-bottom .mwt-logo-crop{width:126px!important;height:126px!important;max-width:85%}
+.hero-mwt{right:18px!important;top:9px!important;overflow:visible!important}
+.hero-mwt .mwt-logo-crop.small{width:77px!important;height:77px!important}
+@media(max-width:760px){
+ .side-bottom{display:none!important}
+ .hero-mwt{display:none!important}
+}
 </style></head>
 <body><div class="app">
 <aside class="side"><div class="brand"><span class="brand-dot"></span><span class="nio-logo-crop" role="img" aria-label="NIO Digital"></span></div><nav class="menu" id="menu">
