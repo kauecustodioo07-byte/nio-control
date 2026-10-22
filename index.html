@@ -531,7 +531,7 @@ async function importCSV(){
  busy=true;$('nioImportConfirm').disabled=true;show('nioProgress');let done=0;
  try{
    for(let start=0;start<items.length;start+=100){
-      await dbRequest('indicacoes?on_conflict=user_id,source_key',{method:'POST',body:items.slice(start,start+100),headers:{Prefer:'return=minimal,resolution=ignore-duplicates'}});
+      await dbRequest('indicacoes',{method:'POST',body:items.slice(start,start+100),headers:{Prefer:'return=minimal'}});
       done+=Math.min(100,items.length-start);
       $('nioProgressBar').style.width=Math.round(done/items.length*100)+'%';
       $('nioImportInfo').textContent='Processando '+brNumber(done)+' de '+brNumber(items.length)+'...'
