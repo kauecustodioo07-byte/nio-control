@@ -280,7 +280,23 @@ button.nio-tapped:not(:disabled){animation:nioButtonTap .32s ease-out both}
 .nio-glow-subtle .main::before{opacity:.24}
 @media(max-width:1200px){.nio-quick-backdrop{padding:12px}.nio-quick-card{max-height:90vh}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation:none!important;transition:none!important;transform:none!important}}
-</style><link rel="preload" as="image" href="./assets/nio-logo.png"></head><body>
+</style><link rel="preload" as="image" href="./assets/nio-logo.png"><style id="nio-workflow-styles">
+/* Elimina a sombra preta quadrada e preserva os contornos luminosos */
+.hero-art{mix-blend-mode:screen!important;filter:drop-shadow(0 0 14px rgba(0,230,153,.16))!important}
+.hero-art::before,.hero-art::after{display:none!important}
+body.nio-base-indicacoes .metrics,body.nio-base-indicacoes .middle,
+body.nio-base-remessa .metrics,body.nio-base-remessa .middle{display:none!important}
+body.nio-base-indicacoes .lower,body.nio-base-remessa .lower{margin-top:18px}
+body.nio-base-indicacoes .activity,body.nio-base-remessa .activity{display:none!important}
+body.nio-base-indicacoes .lower-left,body.nio-base-remessa .lower-left{width:100%;max-width:none;grid-column:1/-1}
+body.nio-base-indicacoes .lower,body.nio-base-remessa .lower{grid-template-columns:1fr!important}
+.nio-remessa-bar{display:none;align-items:center;justify-content:space-between;gap:12px;background:linear-gradient(120deg,#053127,#031719);border:1px solid #087854;border-radius:12px;padding:16px;margin:12px 0;box-shadow:0 0 20px #00e79d19}
+body.nio-base-remessa .nio-remessa-bar,body.nio-base-indicacoes .nio-remessa-bar{display:flex}
+.nio-remessa-bar strong{color:#f1fff9;font-size:15px}.nio-remessa-bar p{margin:4px 0 0;color:#9bc8b9;font-size:12px}
+.nio-remessa-bar button{background:linear-gradient(130deg,#00ec9e,#00bf84);color:#001c16;border:0;border-radius:8px;font-weight:800;padding:11px 15px}
+body.nio-base-remessa .nio-remessa-add{display:none}
+@media(max-width:950px){.nio-remessa-bar{flex-wrap:wrap}}
+</style></head><body>
 <svg aria-hidden="true" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden"><defs>
 <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V10z"/></symbol>
 <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20v-2a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v2M16 6a3 3 0 0 1 0 6m2 2a4 4 0 0 1 3 4v2"/></symbol>
@@ -335,7 +351,7 @@ button.nio-tapped:not(:disabled){animation:nioButtonTap .32s ease-out both}
 <div class="panel mid-panel"><div class="panel-top"><div class="panel-heading"><span class="dot"></span>Status das indicações</div><button class="select-btn">Este mês <svg class="icon" style="width:13px;height:13px"><use href="#i-chevron"/></svg></button></div><div class="status-container"><div class="donut"><div class="donut-center">Total<strong>156</strong></div></div><div class="legend"><div class="legend-row"><span class="legend-color" style="background:#00e2a2"></span><span class="legend-label">Pagas</span><span class="legend-value">104 (67%)</span></div><div class="legend-row"><span class="legend-color" style="background:#199ffb"></span><span class="legend-label">Aguardando validação</span><span class="legend-value">18 (12%)</span></div><div class="legend-row"><span class="legend-color" style="background:#ffcf4b"></span><span class="legend-label">Pendentes de evidência</span><span class="legend-value">20 (13%)</span></div><div class="legend-row"><span class="legend-color" style="background:#ff375a"></span><span class="legend-label">Erro no pagamento</span><span class="legend-value">6 (4%)</span></div><div class="legend-row"><span class="legend-color" style="background:#a77dff"></span><span class="legend-label">Outros</span><span class="legend-value">8 (4%)</span></div></div></div></div>
 <div class="panel remit"><div class="panel-heading">Próxima remessa <svg class="icon" style="width:16px"><use href="#i-info"/></svg></div><div class="sub">12 indicações aguardando conferência.</div><button class="primary-btn full" data-demo="Abrir fila de conferência">Conferir agora &nbsp;➜</button><div class="remit-note"><div class="note-icon"><svg class="icon"><use href="#i-upload"/></svg></div><div><b>Após a conferência</b><p>As indicações serão movidas para a próxima etapa e esta aba será zerada.</p></div></div></div>
 </section>
-<section class="lower"><div class="lower-left"><div class="tabs" role="tablist" aria-label="Filtros de indicações"><button class="tab active" data-filter="all">Indicações da semana <span class="tab-count count-green">12</span></button><button class="tab" data-filter="review">Validação NIO <span class="tab-count count-blue">8</span></button><button class="tab" data-filter="evidence">Pendentes de evidência <span class="tab-count count-yellow">5</span></button><button class="tab" data-filter="payment">Em pagamento <span class="tab-count count-purple">3</span></button><button class="tab" data-filter="paid">Pagas</button><button class="tab" data-filter="error">Erro no pagamento <span class="tab-count count-red">1</span></button></div>
+<section class="lower"><div class="nio-remessa-bar" id="nioRemessaBar"><div><strong id="nioRemessaTitle">Indicações · Base operacional</strong><p id="nioRemessaDescription">Importe CSV e organize registros; pagos são ocultos das filas.</p></div><button class="nio-remessa-add" type="button" id="nioAddToRemessa">Enviar seleção à remessa</button><button type="button" id="nioRemoveFromRemessa">Remover seleção da remessa</button></div><div class="lower-left"><div class="tabs" role="tablist" aria-label="Filtros de indicações"><button class="tab active" data-filter="all">Indicações da semana <span class="tab-count count-green">12</span></button><button class="tab" data-filter="review">Validação NIO <span class="tab-count count-blue">8</span></button><button class="tab" data-filter="evidence">Pendentes de evidência <span class="tab-count count-yellow">5</span></button><button class="tab" data-filter="payment">Em pagamento <span class="tab-count count-purple">3</span></button><button class="tab" data-filter="paid">Pagas</button><button class="tab" data-filter="error">Erro no pagamento <span class="tab-count count-red">1</span></button></div>
 <div class="panel table-panel"><div class="table-head"><div><h2 id="tableTitle">Indicações da semana</h2><p>Novas indicações recebidas pelo formulário ou incluídas no sistema.</p></div><div class="table-buttons"><button class="primary-btn" data-demo="Finalizar conferência do lote">◉ &nbsp; Finalizar conferência do lote</button><button class="dots-btn" aria-label="Opções">⋮</button></div></div><div class="table-wrap"><table><thead><tr><th><input type="checkbox" class="fake-check" id="selectAll" aria-label="Selecionar todos"></th><th>Data e hora &nbsp;⌄</th><th>Consultor</th><th>Supervisor</th><th>CPF Indicado</th><th>Nome Indicador</th><th>Status</th><th>Ações</th></tr></thead><tbody id="referralsBody"></tbody></table></div></div></div>
 <aside class="panel activity"><div class="panel-top"><h2>Últimas atividades</h2><button class="select-btn" data-demo="Ver todas as atividades">Ver todas</button></div><div class="timeline">
 <div class="activity-event"><span class="activity-marker" style="color:#00edab;background:#00edab"></span><span class="activity-icon"><svg class="icon"><use href="#i-file"/></svg></span><div><strong>Nova indicação recebida</strong><small>há 12 minutos</small></div></div>
@@ -353,7 +369,7 @@ button.nio-tapped:not(:disabled){animation:nioButtonTap .32s ease-out both}
 <div class="nio-overlay" id="nioEditor" hidden><div class="nio-dialog wide" role="dialog" aria-modal="true" aria-labelledby="nioEditorTitle"><h2 id="nioEditorTitle">Nova indicação</h2><p id="nioEditorIntro">Preencha os dados abaixo para salvar no Supabase do NIO.</p>
 <form id="nioEditorForm" class="nio-fields"><div class="nio-grid"><label>Data e hora<input id="nioFieldDate" type="datetime-local" required></label><label>CPF indicado<input id="nioFieldCpf" type="text" maxlength="14" inputmode="numeric" placeholder="000.000.000-00" required></label><label>Consultor<input id="nioFieldConsultant" maxlength="120" required></label><label>Supervisor<input id="nioFieldSupervisor" maxlength="120" required></label></div><label>Nome do indicador<input id="nioFieldIndicator" maxlength="200" required></label><label>Status<select id="nioFieldStatus"><option value="importado">Nova / recebida</option><option value="validation">Aguardando validação</option><option value="evidence">Pendente de evidência</option><option value="payment">Em pagamento</option><option value="paid">Paga</option><option value="error">Erro no pagamento</option></select></label>
 <div id="nioDialogMessage" role="status"></div><div class="nio-actions"><button class="nio-btn danger" type="button" id="nioDelete" hidden>Excluir</button><button class="nio-btn" type="button" data-close="nioEditor">Cancelar</button><button class="nio-btn important" id="nioEditorSave" type="submit">Salvar indicação</button></div></form></div></div>
-<div class="nio-overlay" id="nioImport" hidden><div class="nio-dialog" role="dialog" aria-modal="true" aria-labelledby="nioImportTitle"><h2 id="nioImportTitle">Importar <em>indicações</em></h2><p>Envie CSV com colunas de consultor, supervisor, CPF indicado, indicador e data. Registros serão adicionados ao banco exclusivo do NIO.</p><label>Arquivo CSV<input id="nioCsvFile" type="file" accept=".csv,text/csv" class="nio-file"></label><p id="nioImportInfo" class="nio-note">O sistema suporta importações acima de 1.000 linhas, em lotes de 100 registros. Uma importação repetida pode gerar duplicatas.</p><div class="nio-progress" id="nioProgress" hidden><span id="nioProgressBar"></span></div><div class="nio-actions"><button class="nio-btn" data-close="nioImport">Cancelar</button><button class="nio-btn important" id="nioImportConfirm">Importar para o banco</button></div></div></div>
+<div class="nio-overlay" id="nioImport" hidden><div class="nio-dialog" role="dialog" aria-modal="true" aria-labelledby="nioImportTitle"><h2 id="nioImportTitle">Importar <em>indicações</em></h2><p>Envie o CSV original do Google Forms. A evidência será ignorada; CPFs e dados bancários serão mapeados automaticamente. Registros já pagos não voltam às filas.</p><label>Arquivo CSV<input id="nioCsvFile" type="file" accept=".csv,text/csv" class="nio-file"></label><p id="nioImportInfo" class="nio-note">O sistema suporta importações acima de 1.000 linhas, em lotes de 100 registros. Importações repetidas serão identificadas; registros pagos permanecem no histórico, mas não aparecem nas filas.</p><div class="nio-progress" id="nioProgress" hidden><span id="nioProgressBar"></span></div><div class="nio-actions"><button class="nio-btn" data-close="nioImport">Cancelar</button><button class="nio-btn important" id="nioImportConfirm">Importar para o banco</button></div></div></div>
 <div class="nio-overlay" id="nioConfirm" hidden><div class="nio-dialog" role="alertdialog" aria-modal="true" aria-labelledby="nioConfirmTitle"><h2 id="nioConfirmTitle">Confirmar ação</h2><p id="nioConfirmText"></p><div class="nio-actions"><button class="nio-btn" data-close="nioConfirm">Cancelar</button><button class="nio-btn important" id="nioConfirmProceed">Confirmar</button></div></div></div>
 <div id="nioToast" role="status" hidden></div>
 <script>/* NIO Control — functional PostgreSQL/Supabase adapter.
@@ -402,12 +418,12 @@ async function initialize(){setupControls();resetDemoIndicators();const u=new UR
 }
 function resetDemoIndicators(){els('.metric-number').forEach(n=>n.textContent='0');els('.metric-trend').forEach(n=>n.textContent='—');els('.nav-count,.tab-count').forEach(n=>n.textContent='0');el('.donut-center strong').textContent='0';els('.legend-value').forEach(n=>n.textContent='0 (0%)');el('.remit .sub').textContent='0 indicações aguardando conferência.';$('referralsBody').innerHTML='<tr><td colspan="8" class="nio-empty">Entre para consultar as indicações.</td></tr>';el('.timeline').innerHTML='<div class="nio-activityempty">Acesse sua conta para consultar registros recentes.</div>'}
 function count(status){return rows.filter(r=>r.status===status).length}
-function statistics(){const v={all:rows.length,validation:0,evidence:0,payment:0,paid:0,error:0,importado:0};for(const r of rows){if(Object.prototype.hasOwnProperty.call(v,r.status))v[r.status]++}return v}
+function statistics(){const v={all:rows.filter(r=>r.status!=='paid').length,validation:0,evidence:0,payment:0,paid:0,error:0,importado:0};for(const r of rows){if(Object.prototype.hasOwnProperty.call(v,r.status))v[r.status]++}return v}
 function loadRows(){if(refreshPromise)return refreshPromise;refreshPromise=(async()=>{
- if(!user)return;let offset=0;const all=[];while(true){const q=new URLSearchParams({select:'id,user_id,data,consultor,supervisor,cpf,indicador,status,created_at',user_id:`eq.${user.id}`,order:'created_at.desc',limit:'1000',offset:String(offset)});const chunk=await dbRequest('indicacoes?'+q.toString());if(!Array.isArray(chunk))throw Error('Resposta inesperada do banco');all.push(...chunk);if(chunk.length<1000)break;offset+=1000;if(offset>200000)throw Error('Volume excepcional de registros. Consulte o suporte.');}
+ if(!user)return;let offset=0;const all=[];while(true){const q=new URLSearchParams({select:'id,user_id,data,consultor,supervisor,cpf,indicador,status,created_at,cpf_indicador,nome_bancario,cpf_bancario,banco,pix,tipo_chave_pix,remessa_pronta,source_key',user_id:`eq.${user.id}`,order:'created_at.desc',limit:'1000',offset:String(offset)});const chunk=await dbRequest('indicacoes?'+q.toString());if(!Array.isArray(chunk))throw Error('Resposta inesperada do banco');all.push(...chunk);if(chunk.length<1000)break;offset+=1000;if(offset>200000)throw Error('Volume excepcional de registros. Consulte o suporte.');}
  rows=all;for(const r of rows){r._nioSearch=[r.id,r.data,r.consultor,r.supervisor,r.cpf,r.indicador,labelByStatus[r.status]].join(' ').toLocaleLowerCase('pt-BR');}selected.clear();render();return rows.length;
 })().finally(()=>refreshPromise=null);return refreshPromise}
-function render(){const v=statistics();updateTop(v);updateFilters(v);renderTable();renderActivity();renderTrend();renderDonut();}
+function render(){const v=statistics();updateTop(v);updateFilters(v);renderTable();renderActivity();renderTrend();renderDonut();updateRemessa();}
 function updateTop(v){const metrics=els('.metric-number');[v.all,v.validation,v.evidence,v.paid].forEach((n,i)=>{if(metrics[i])metrics[i].textContent=brNumber(n)});
  const now=new Date(), current=now.getFullYear()*12+now.getMonth();const currentCounts=[0,0,0,0],priorCounts=[0,0,0,0],kinds=[null,'validation','evidence','paid'];
  for(const r of rows){const d=dateOnly(r.created_at);if(!d)continue;const month=d.getFullYear()*12+d.getMonth();const arr=month===current?currentCounts:month===current-1?priorCounts:null;if(!arr)continue;arr[0]++;for(let i=1;i<4;i++)if(r.status===kinds[i])arr[i]++;}
@@ -417,8 +433,8 @@ function updateTop(v){const metrics=els('.metric-number');[v.all,v.validation,v.
 }
 function updateFilters(v){const list=els('.tab');const numbers=[v.all,v.validation,v.evidence,v.payment,null,v.error];list.forEach((b,i)=>{const span=b.querySelector('.tab-count');if(span)span.textContent=numbers[i]===null?'':brNumber(numbers[i])});}
 function filteredRows(){const q=search.toLocaleLowerCase('pt-BR'),cutoff=filter==='week'?Date.now()-7*86400000:0;const d=new Date(),monthStart=filter==='month'?new Date(d.getFullYear(),d.getMonth(),1).getTime():0;
- return rows.filter(r=>{if(filter==='week'&&(dateOnly(r.created_at)||dateOnly(r.data)||new Date(0)).getTime()<cutoff)return false;if(filter==='month'&&(dateOnly(r.created_at)||dateOnly(r.data)||new Date(0)).getTime()<monthStart)return false;if(filter!=='all'&&filter!=='week'&&filter!=='month'&&r.status!==filterStatuses[filter])return false;return !q||(r._nioSearch||[r.id,r.data,r.consultor,r.supervisor,r.cpf,r.indicador,labelByStatus[r.status]].join(' ').toLocaleLowerCase('pt-BR')).includes(q)})}
-function renderTable(){const tbody=$('referralsBody'),rs=filteredRows(),visible=rs.slice(0,60);const validIds=new Set(rows.map(r=>r.id));selected=new Set([...selected].filter(id=>validIds.has(id)));tbody.innerHTML=visible.length?visible.map(r=>{
+ return rows.filter(r=>{if(r.status==='paid'&&filter!=='paid')return false;if(page==='Próxima Remessa'&&!r.remessa_pronta)return false;if(filter==='week'&&(dateOnly(r.created_at)||dateOnly(r.data)||new Date(0)).getTime()<cutoff)return false;if(filter==='month'&&(dateOnly(r.created_at)||dateOnly(r.data)||new Date(0)).getTime()<monthStart)return false;if(filter!=='all'&&filter!=='week'&&filter!=='month'&&r.status!==filterStatuses[filter])return false;return !q||(r._nioSearch||[r.id,r.data,r.consultor,r.supervisor,r.cpf,r.indicador,labelByStatus[r.status]].join(' ').toLocaleLowerCase('pt-BR')).includes(q)})}
+function renderTable(){const tbody=$('referralsBody'),rs=filteredRows(),visible=rs.slice(0,60);const validIds=new Set(rows.filter(r=>r.status!=='paid').map(r=>r.id));selected=new Set([...selected].filter(id=>validIds.has(id)));tbody.innerHTML=visible.length?visible.map(r=>{
  const cls=tabByStatus[r.status]||'new';return `<tr class="nio-dynamic-row" data-id="${esc(r.id)}"><td><input class="fake-check nio-row-select" type="checkbox" data-id="${esc(r.id)}" ${selected.has(r.id)?'checked':''} aria-label="Selecionar indicação"></td><td>${esc(shortDate(r.data||r.created_at))}</td><td>${esc(r.consultor)}</td><td>${esc(r.supervisor)}</td><td>${esc(formatCPF(r.cpf))}</td><td>${esc(r.indicador)}</td><td><span class="status ${cls}">${esc(labelByStatus[r.status]||'Nova')}</span></td><td><button class="nio-function-icon" data-row-action="view" data-id="${esc(r.id)}" title="Visualizar e editar" aria-label="Visualizar">⌾</button> <button class="nio-function-icon" data-row-action="menu" data-id="${esc(r.id)}" title="Alterar status" aria-label="Alterar status">⋮</button></td></tr>`}).join(''):'<tr><td colspan="8" class="nio-empty">Nenhum registro encontrado. Use “Nova indicação” ou “Importar planilha” para começar.</td></tr>';
  $('selectAll').checked=visible.length>0&&visible.every(r=>selected.has(r.id));let foot=$('nioTableCounter');if(!foot){foot=document.createElement('div');foot.id='nioTableCounter';foot.className='nio-list-counter';el('.table-wrap').after(foot)}foot.textContent=rs.length>visible.length?`Exibindo ${visible.length} de ${brNumber(rs.length)} registros. Use os filtros ou a busca para localizar outros.`:`${brNumber(rs.length)} registro(s) encontrado(s).`;
 }
@@ -445,15 +461,105 @@ async function saveEditor(e){e.preventDefault();if(busy)return;const data={data:
 async function deleteEditor(){if(!editorId)return;const id=editorId;confirmAction('Excluir esta indicação permanentemente? Esta ação não pode ser desfeita.',async()=>{await dbRequest('indicacoes?id=eq.'+encodeURIComponent(id)+'&user_id=eq.'+encodeURIComponent(user.id),{method:'DELETE',headers:{Prefer:'return=minimal'}});hide('nioEditor');await loadRows();toast('Indicação excluída do banco.')},{danger:true})}
 async function changeStatus(id,next){if(!user)return;const x=rows.find(r=>r.id===id);if(!x)return;await dbRequest('indicacoes?id=eq.'+encodeURIComponent(id)+'&user_id=eq.'+encodeURIComponent(user.id),{method:'PATCH',body:{status:next},headers:{Prefer:'return=minimal'}});await loadRows();toast('Status atualizado.')}
 function changeFilter(v,title,scroll=true){filter=v;const titleEl=$('tableTitle');titleEl.textContent=title||({all:'Todas as indicações',week:'Indicações da semana',review:'Validação NIO',evidence:'Pendentes de evidência',payment:'Em pagamento',paid:'Pagas',error:'Erro no pagamento'}[v]||'Indicações');els('.tab').forEach(t=>t.classList.toggle('active',t.dataset.filter===v||(v==='week'&&t.dataset.filter==='all')));renderTable();if(scroll)el('.lower').scrollIntoView({behavior:'smooth',block:'start'})}
-function navTo(name){page=name;els('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.page===name));const byNav={'Visão geral':['week','Indicações da semana'],'Indicações':['all','Todas as indicações'],'Próxima Remessa':['review','Próxima remessa — conferência'],'Validação NIO':['review','Validação NIO'],'Pendentes de Evidência':['evidence','Pendentes de evidência'],'Pagamento':['payment','Em pagamento'],'Pagas':['paid','Pagas'],'Erro no Pagamento':['error','Erro no pagamento']};if(byNav[name]){changeFilter(...byNav[name],false);if(name==='Visão geral')window.scrollTo({top:0,behavior:'smooth'});else el('.lower').scrollIntoView({behavior:'smooth',block:'start'});return}if(name==='Importar Planilha'){show('nioImport');return}if(name==='Relatórios'){openQuick('Relatórios do NIO',buildReports());return}if(name==='Configurações'){openQuick('Configurações da conta',buildSettings());return}if(name==='Usuários e Equipes'){openQuick('Consultores e supervisores',buildTeams());return}}
+function navTo(name){page=name;document.body.classList.toggle('nio-base-indicacoes',name==='Indicações');document.body.classList.toggle('nio-base-remessa',name==='Próxima Remessa');els('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.page===name));const byNav={'Visão geral':['week','Indicações da semana'],'Indicações':['all','Todas as indicações'],'Próxima Remessa':['all','Próxima remessa — selecionadas'],'Validação NIO':['review','Validação NIO'],'Pendentes de Evidência':['evidence','Pendentes de evidência'],'Pagamento':['payment','Em pagamento'],'Pagas':['paid','Pagas'],'Erro no Pagamento':['error','Erro no pagamento']};if(byNav[name]){changeFilter(...byNav[name],false);updateRemessa();if(name==='Visão geral')window.scrollTo({top:0,behavior:'smooth'});else el('.lower').scrollIntoView({behavior:'smooth',block:'start'});return}if(name==='Importar Planilha'){show('nioImport');return}if(name==='Relatórios'){openQuick('Relatórios do NIO',buildReports());return}if(name==='Configurações'){openQuick('Configurações da conta',buildSettings());return}if(name==='Usuários e Equipes'){openQuick('Consultores e supervisores',buildTeams());return}}
 function exportCsv(){if(!rows.length){toast('Nenhum registro para exportar.');return}const cols=['data','consultor','supervisor','cpf','indicador','status'];const title=['Data','Consultor','Supervisor','CPF indicado','Nome indicador','Status'];const csv=[title,...rows.map(r=>cols.map(k=>r[k]||''))].map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(';')).join('\r\n');const link=document.createElement('a');link.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));link.download='nio-indicacoes-'+new Date().toISOString().slice(0,10)+'.csv';link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000);toast('CSV exportado com dados da sua conta.')}
 function parseCSV(text){const first=text.split(/\r?\n/)[0]||'';const sep=(first.match(/;/g)||[]).length>=(first.match(/,/g)||[]).length?';':',';let out=[],row=[],part='',quoted=false;for(let i=0;i<text.length;i++){const c=text[i];if(c==='"'){if(quoted&&text[i+1]==='"'){part+='"';i++}else quoted=!quoted}else if(c===sep&&!quoted){row.push(part);part=''}else if((c==='\r'||c==='\n')&&!quoted){if(c==='\r'&&text[i+1]==='\n')i++;row.push(part);if(row.some(x=>x.trim()))out.push(row);row=[];part=''}else part+=c}row.push(part);if(row.some(x=>x.trim()))out.push(row);return out}
 function norm(s){return String(s||'').replace(/^\ufeff/,'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim()}
-function makeCsvRows(text){const lines=parseCSV(text);if(lines.length<2)throw Error('CSV vazio ou sem dados.');const h=lines.shift().map(norm);const indexOf=(list)=>h.findIndex(x=>list.some(t=>x.includes(t)));const idx={data:indexOf(['data','carimbo','timestamp']),consultor:indexOf(['consultor']),supervisor:indexOf(['supervisor']),cpf:indexOf(['cpf']),indicador:indexOf(['nome indicador','nome do indicador','indicador'])};if(idx.cpf<0||idx.consultor<0||idx.indicador<0)throw Error('Colunas obrigatórias não encontradas: consultor, CPF e indicador.');return lines.map((line,i)=>({data:idx.data>=0?String(line[idx.data]||'').trim():new Date().toISOString(),consultor:String(line[idx.consultor]||'').trim(),supervisor:idx.supervisor>=0?String(line[idx.supervisor]||'').trim():'',cpf:String(line[idx.cpf]||'').replace(/\D/g,''),indicador:String(line[idx.indicador]||'').trim(),status:'importado',user_id:user.id})).filter(r=>r.consultor&&r.cpf&&r.indicador)}
-async function importCSV(){if(busy)return;const file=$('nioCsvFile').files[0];if(!file){$('nioImportInfo').textContent='Selecione um arquivo CSV.';return}if(file.size>15*1024*1024){$('nioImportInfo').textContent='Arquivo muito grande. Divida o CSV em arquivos menores.';return}let items;try{items=makeCsvRows(await file.text())}catch(e){$('nioImportInfo').textContent=errMsg(e);return}if(!items.length){$('nioImportInfo').textContent='Nenhum registro válido para importar.';return}const invalid=items.filter(x=>!validCpf(x.cpf));if(invalid.length){$('nioImportInfo').textContent=`${invalid.length} CPF(s) inválido(s). Corrija a planilha antes de importar. Nenhum registro foi salvo.`;return}
- const set=new Set(rows.map(r=>[r.cpf.replace(/\D/g,''),norm(r.consultor),norm(r.indicador)].join('|')));let dups=0;items=items.filter(r=>{const key=[r.cpf,norm(r.consultor),norm(r.indicador)].join('|');if(set.has(key)){dups++;return false}set.add(key);return true});if(!items.length){$('nioImportInfo').textContent='Todos os registros já parecem cadastrados. Nada foi importado.';return}
- if(!confirm(`Importar ${items.length} registros para o banco NIO? ${dups?`(${dups} duplicados ignorados.)`:''}`))return;busy=true;$('nioImportConfirm').disabled=true;show('nioProgress');let done=0;try{for(let start=0;start<items.length;start+=100){await dbRequest('indicacoes',{method:'POST',body:items.slice(start,start+100),headers:{Prefer:'return=minimal'}});done+=Math.min(100,items.length-start);$('nioProgressBar').style.width=Math.round(done/items.length*100)+'%';$('nioImportInfo').textContent=`Salvando ${brNumber(done)} de ${brNumber(items.length)} registros...`;}await loadRows();hide('nioImport');$('nioCsvFile').value='';toast(`Importação concluída: ${brNumber(done)} registros salvos. ${dups} duplicados ignorados.`,7000)}catch(err){$('nioImportInfo').textContent=`Erro: ${errMsg(err)}. ${done} registros já podem ter sido salvos; verifique antes de repetir.`}finally{busy=false;$('nioImportConfirm').disabled=false}}
-function setupControls(){els('.tab').forEach(b=>b.addEventListener('click',()=>changeFilter(b.dataset.filter==='all'?'week':b.dataset.filter,b.childNodes[0].textContent.trim())));
+function makeCsvRows(text){
+ const lines=parseCSV(text);if(lines.length<2)throw Error('CSV vazio ou sem dados.');
+ const h=lines.shift().map(norm);
+ const index=(terms,exclude=[])=>h.findIndex(x=>terms.some(t=>x.includes(t))&&!exclude.some(t=>x.includes(t)));
+ const pick=(line,i)=>i<0?'':String(line[i]??'').trim();
+ const fields={
+  data:index(['carimbo de data hora','carimbo','timestamp']),
+  consultor:index(['consultor']),
+  indicado:index(['cpf cliente indicado','cpf indicado'],['que indicou']),
+  cpfIndicador:index(['cpf cliente que indicou','cpf que indicou']),
+  indicador:index(['nome cliente que indicou','nome do indicador','nome indicador']),
+  nomeBanco:index(['dados bancarios nome']),
+  cpfBanco:index(['dados bancarios cpf']),
+  banco:index(['dados bancarios banco']),
+  pix:index(['dados bancarios pix']),
+  chave:index(['tipo de chave pix']),
+  fallback:h.findIndex(x=>x==='')};
+ if(fields.indicado<0)throw Error('Não encontrei a coluna CPF cliente INDICADO.');
+ if(fields.consultor<0)throw Error('Não encontrei a coluna Consultor(a).');
+ let invalid=0,ignored=0;
+ const result=[];
+ for(const line of lines){
+  const cpf=pick(line,fields.indicado).replace(/\D/g,'');
+  if(cpf.length!==11){invalid++;continue}
+  const timestamp=pick(line,fields.data);
+  const cpfIndicador=pick(line,fields.cpfIndicador).replace(/\D/g,'');
+  const consultor=pick(line,fields.consultor)||pick(line,fields.fallback);
+  // A coluna de evidência é deliberadamente ignorada.
+  const row={
+   data:timestamp,consultor,supervisor:'',
+   cpf,cpf_indicador:cpfIndicador,indicador:pick(line,fields.indicador)||pick(line,fields.nomeBanco),
+   nome_bancario:pick(line,fields.nomeBanco),cpf_bancario:pick(line,fields.cpfBanco).replace(/\D/g,''),
+   banco:pick(line,fields.banco),pix:pick(line,fields.pix),tipo_chave_pix:pick(line,fields.chave),
+   remessa_pronta:false,status:validCpf(cpf)?'importado':'error',
+   user_id:user.id,
+   source_key:[norm(timestamp),cpf,cpfIndicador||norm(pick(line,fields.nomeBanco))].join('|')
+  };
+  if(!row.consultor)row.consultor='Não informado';
+  result.push(row);
+ }
+ result.invalid=invalid;result.ignored=ignored;return result
+}
+async function importCSV(){
+ if(busy)return;
+ const file=$('nioCsvFile').files[0];
+ if(!file){$('nioImportInfo').textContent='Selecione um arquivo CSV.';return}
+ if(file.size>15*1024*1024){$('nioImportInfo').textContent='Arquivo grande demais (limite de 15 MB).';return}
+ let parsed;
+ try{parsed=makeCsvRows(await file.text())}catch(e){$('nioImportInfo').textContent=errMsg(e);return}
+ let skippedInvalid=parsed.invalid||0;
+ const seenKeys=new Set(rows.map(r=>r.source_key).filter(Boolean));
+ const paidCpfs=new Set(rows.filter(r=>r.status==='paid').map(r=>String(r.cpf||'').replace(/\D/g,'')));
+ const knownLegacy=new Set(rows.filter(r=>!r.source_key).map(r=>[String(r.cpf||'').replace(/\D/g,''),norm(r.consultor),norm(r.indicador)].join('|')));
+ let duplicates=0,alreadyPaid=0;
+ const items=[];
+ for(const r of parsed){
+   if(paidCpfs.has(r.cpf)){alreadyPaid++;continue}
+   const legacy=[r.cpf,norm(r.consultor),norm(r.indicador)].join('|');
+   if(seenKeys.has(r.source_key)||knownLegacy.has(legacy)){duplicates++;continue}
+   seenKeys.add(r.source_key);items.push(r)
+ }
+ if(!items.length){$('nioImportInfo').textContent='Nenhuma nova indicação. Pagas ignoradas: '+alreadyPaid+'; repetidas: '+duplicates+'; CPF incompleto: '+skippedInvalid+'.';return}
+ if(!confirm('Importar '+items.length+' novas indicações? '+alreadyPaid+' já pagas, '+duplicates+' repetidas e '+skippedInvalid+' com CPF incompleto serão ignoradas.'))return;
+ busy=true;$('nioImportConfirm').disabled=true;show('nioProgress');let done=0;
+ try{
+   for(let start=0;start<items.length;start+=100){
+      await dbRequest('indicacoes?on_conflict=user_id,source_key',{method:'POST',body:items.slice(start,start+100),headers:{Prefer:'return=minimal,resolution=ignore-duplicates'}});
+      done+=Math.min(100,items.length-start);
+      $('nioProgressBar').style.width=Math.round(done/items.length*100)+'%';
+      $('nioImportInfo').textContent='Processando '+brNumber(done)+' de '+brNumber(items.length)+'...'
+   }
+   await loadRows();hide('nioImport');$('nioCsvFile').value='';
+   toast('Importação concluída. Processadas: '+done+'; pagas ignoradas: '+alreadyPaid+'; repetidas: '+duplicates+'; CPF incompleto: '+skippedInvalid+'.',8500)
+ }catch(err){$('nioImportInfo').textContent='Erro: '+errMsg(err)+'. Foram processadas '+done+' linhas; confira o banco antes de tentar novamente.'}
+ finally{busy=false;$('nioImportConfirm').disabled=false;hide('nioProgress')}
+}
+function updateRemessa(){
+ const bar=$('nioRemessaBar');if(!bar)return;
+ const ready=rows.filter(r=>r.status!=='paid'&&r.remessa_pronta).length;
+ $('nioRemessaTitle').textContent=page==='Próxima Remessa'?'Próxima remessa · '+brNumber(ready)+' registros':'Indicações · '+brNumber(rows.filter(r=>r.status!=='paid').length)+' ativas';
+ $('nioRemessaDescription').textContent=page==='Próxima Remessa'?'Somente registros que você encaminhou para a remessa.':'Selecione as indicações conferidas para a próxima remessa.';
+}
+async function setRemessa(flag){
+ const ids=[...selected].filter(id=>rows.some(r=>r.id===id&&r.status!=='paid'));
+ if(!ids.length){toast('Selecione pelo menos uma indicação.');return}
+ if(!confirm((flag?'Enviar ':'Remover ')+ids.length+' indicação(ões) '+(flag?'para a próxima remessa?':'da próxima remessa?')))return;
+ try{
+  for(let i=0;i<ids.length;i+=75){
+   const q='indicacoes?id=in.('+ids.slice(i,i+75).join(',')+')';
+   await dbRequest(q,{method:'PATCH',body:{remessa_pronta:flag},headers:{Prefer:'return=minimal'}})
+  }
+  await loadRows();selected.clear();toast('Próxima remessa atualizada.')
+ }catch(e){toast('Não foi possível atualizar a remessa: '+errMsg(e))}
+}
+function setupControls(){$('nioAddToRemessa').addEventListener('click',()=>setRemessa(true));$('nioRemoveFromRemessa').addEventListener('click',()=>setRemessa(false));els('.tab').forEach(b=>b.addEventListener('click',()=>changeFilter(b.dataset.filter==='all'?'week':b.dataset.filter,b.childNodes[0].textContent.trim())));
  let searchTimer; $('globalSearch').addEventListener('input',e=>{search=e.target.value.trim().toLocaleLowerCase('pt-BR');clearTimeout(searchTimer);searchTimer=setTimeout(()=>{if(search&&filter==='week')changeFilter('all','Resultados da busca',false);else renderTable()},90)});
  els('.nav-btn').forEach(b=>b.addEventListener('click',()=>navTo(b.dataset.page)));
  $('selectAll').addEventListener('change',e=>{for(const r of filteredRows().slice(0,60))if(e.target.checked)selected.add(r.id);else selected.delete(r.id);renderTable()});
